@@ -11,23 +11,7 @@ Welcome to LuckyLoop's documentation!
    :caption: Contents:
 
    ringbuf-doc
-
-Docs
-====
-
-
-.. doxygenstruct:: condition
-   :members:
-
-.. doxygenfunction:: double_modulo
-
-.. doxygenfunction:: goertzel_coefficients
-
-
-
-.. .. doxygenfile:: goertzel.c
-   :path: ../cdocs/xml
-   :no-link:
+   sri-doc
 
 
 Indices and tables

@@ -82,6 +82,7 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="ringbuf-doc.html">Ringbuffer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sri-doc.html">Server Real-Time Interface</a></li>
 </ul>
 
             
@@ -152,73 +153,9 @@
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="ringbuf-doc.html">Ringbuffer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sri-doc.html">Server Real-Time Interface</a></li>
 </ul>
 </div>
-</div>
-<div class="section" id="docs">
-<h1>Docs<a class="headerlink" href="#docs" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
-<dt id="_CPPv49condition">
-<span id="_CPPv39condition"></span><span id="_CPPv29condition"></span><span id="condition"></span><span class="target" id="structcondition"></span><em class="property">struct </em><code class="sig-name descname">condition</code><a class="headerlink" href="#_CPPv49condition" title="Permalink to this definition">¶</a><br /></dt>
-<dd><div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Public Members</p>
-<dl class="member">
-<dt id="_CPPv4N9condition12target_phaseE">
-<span id="_CPPv3N9condition12target_phaseE"></span><span id="_CPPv2N9condition12target_phaseE"></span><span id="condition::target_phase__i"></span><span class="target" id="structcondition_1ab69b390790898c31299d324740f7ce28"></span>int <code class="sig-name descname">target_phase</code><a class="headerlink" href="#_CPPv4N9condition12target_phaseE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="member">
-<dt id="_CPPv4N9condition16target_frequencyE">
-<span id="_CPPv3N9condition16target_frequencyE"></span><span id="_CPPv2N9condition16target_frequencyE"></span><span id="condition::target_frequency__i"></span><span class="target" id="structcondition_1a2ca5c67157041ddbc7d0c58512f09e34"></span>int <code class="sig-name descname">target_frequency</code><a class="headerlink" href="#_CPPv4N9condition16target_frequencyE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="member">
-<dt id="_CPPv4N9condition9thresholdE">
-<span id="_CPPv3N9condition9thresholdE"></span><span id="_CPPv2N9condition9thresholdE"></span><span id="condition::threshold__i"></span><span class="target" id="structcondition_1afdadb6e53909ea07005802f615713105"></span>int <code class="sig-name descname">threshold</code><a class="headerlink" href="#_CPPv4N9condition9thresholdE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="member">
-<dt id="_CPPv4N9condition7triggerE">
-<span id="_CPPv3N9condition7triggerE"></span><span id="_CPPv2N9condition7triggerE"></span><span id="condition::trigger__i"></span><span class="target" id="structcondition_1ad8c65347d46916738189f6a269214813"></span>int <code class="sig-name descname">trigger</code><a class="headerlink" href="#_CPPv4N9condition7triggerE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="member">
-<dt id="_CPPv4N9condition4mutxE">
-<span id="_CPPv3N9condition4mutxE"></span><span id="_CPPv2N9condition4mutxE"></span><span id="condition::mutx__pthread_mutex_t"></span><span class="target" id="structcondition_1ae8be799a4bb9cc224447332f60561d75"></span>pthread_mutex_t <code class="sig-name descname">mutx</code><a class="headerlink" href="#_CPPv4N9condition4mutxE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-</div>
-</dd></dl>
-
-<dl class="function">
-<dt id="_CPPv413double_modulodd">
-<span id="_CPPv313double_modulodd"></span><span id="_CPPv213double_modulodd"></span><span id="double_modulo__double.double"></span><span class="target" id="goertzel_8h_1abc7a9a62de552446774c740d38ea0e7e"></span>double <code class="sig-name descname">double_modulo</code><span class="sig-paren">(</span>double, double<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv413double_modulodd" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>takes the modulo of a value. <dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>b the remainder </p>
-</dd>
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">n</span></code>: the starting value </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">m</span></code>: the divisor </p></li>
-</ul>
-</dd>
-</dl>
-</p>
-</dd></dl>
-
-<dl class="function">
-<dt>
-<span class="target" id="goertzel_8h_1a436c1aebcdc87e0828fb99119d014f6e"></span><code class="sig-name descname">double complex goertzel_coefficients(int, int, int, ringbuf  *)</code></dt>
-<dd><p>returns a complex number for further processing <dl class="simple">
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">int</span></code>: numSamples </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">int</span></code>: target_freuqncy </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">int</span></code>: sampling_rate param ringbuf *data </p></li>
-</ul>
-</dd>
-</dl>
-</p>
-</dd></dl>
-
 </div>
 <div class="section" id="indices-and-tables">
 <h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
