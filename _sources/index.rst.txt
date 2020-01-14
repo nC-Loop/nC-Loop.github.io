@@ -10,6 +10,7 @@ Welcome to LuckyLoop's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   ringbuf-doc
 
 Docs
 ====
@@ -17,6 +18,16 @@ Docs
 
 .. doxygenstruct:: condition
    :members:
+
+.. doxygenfunction:: double_modulo
+
+.. doxygenfunction:: goertzel_coefficients
+
+
+
+.. .. doxygenfile:: goertzel.c
+   :path: ../cdocs/xml
+   :no-link:
 
 
 Indices and tables

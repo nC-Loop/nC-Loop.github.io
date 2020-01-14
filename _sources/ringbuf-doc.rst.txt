@@ -1,0 +1,12 @@
+Ringbuffer
+----------
+
+One of the main goals of the LuckyLoop real-time-process is to calculate phase
+and power of a specific frequency for a specific channel. To calculate phase
+and power, we need more than a current sample. To achieve this, data is
+collected by one of EtherCat slave devices and continually read in the EtherCat
+main process into a ringbuffer.
+
+.. doxygenfile:: ringbuf.h
+   :path: ../cdocs/xml
+   :no-link:
