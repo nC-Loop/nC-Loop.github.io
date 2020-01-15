@@ -1,0 +1,333 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>LuckyClient &mdash; LuckyLoop 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Server Real-Time Interface" href="sri-doc.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> LuckyLoop
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="ringbuf-doc.html">Ringbuffer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sri-doc.html">Server Real-Time Interface</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">LuckyClient</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">LuckyLoop</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>LuckyClient</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/client-doc.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="luckyclient">
+<h1>LuckyClient<a class="headerlink" href="#luckyclient" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://nc-loop.github.io/_htmlcov/index.html">Coverage Report</a></p>
+<span class="target" id="module-luckyloop.client"></span><p>LuckyClient is the python interface to remote control LuckyLoop over TCP/IP</p>
+<p class="rubric">Example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">luckyloop.client</span> <span class="kn">import</span> <span class="n">LuckyClient</span>
+
+<span class="n">lucky</span> <span class="o">=</span> <span class="n">LuckyClient</span><span class="p">()</span>
+<span class="n">lucky</span><span class="o">.</span><span class="n">frequency</span> <span class="o">=</span> <span class="mi">20</span>  <span class="n">sets</span> <span class="n">the</span> <span class="n">target</span> <span class="n">frequency</span> <span class="n">to</span> <span class="mi">20</span>
+<span class="n">lucky</span><span class="o">.</span><span class="n">phase</span> <span class="o">=</span> <span class="mi">2</span> <span class="c1"># sets the target phase to 2</span>
+<span class="n">lucky</span><span class="o">.</span><span class="n">trigger</span><span class="p">()</span> <span class="c1"># triggers immediatly</span>
+</pre></div>
+</div>
+<dl class="class">
+<dt id="luckyloop.client.LuckyClient">
+<em class="property">class </em><code class="sig-name descname">LuckyClient</code><span class="sig-paren">(</span><em class="sig-param">host='127.0.0.1'</em>, <em class="sig-param">port=1219</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/luckyloop/client.html#LuckyClient"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#luckyloop.client.LuckyClient" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allows to remote control the LuckyLoop</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>host</strong> (<em>str</em>) – defaults to 127.0.0.1, but should be set in production to the ip-adress of the LuckyLoop device</p></li>
+<li><p><strong>port</strong> (<em>int</em>) – defaults to 1219 because LuckyServer has the acronym LS and L is 12th character in alphabet and S is the 19th.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For safety reasons, parameters like target frequency and phase are not set during initialization of the client, as this could interrupt an ongoing process on LuckyLoop when an user tries to reconnect. All parameters have be set explicitly after initialization.</p>
+</div>
+<dl class="method">
+<dt id="luckyloop.client.LuckyClient.close">
+<code class="sig-name descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/luckyloop/client.html#LuckyClient.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#luckyloop.client.LuckyClient.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>close the connection to LuckyLoop</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="luckyloop.client.LuckyClient.connect">
+<code class="sig-name descname">connect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/luckyloop/client.html#LuckyClient.connect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#luckyloop.client.LuckyClient.connect" title="Permalink to this definition">¶</a></dt>
+<dd><p>connect with LuckyLoop</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="luckyloop.client.LuckyClient.decode">
+<em class="property">static </em><code class="sig-name descname">decode</code><span class="sig-paren">(</span><em class="sig-param">status</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/luckyloop/client.html#LuckyClient.decode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#luckyloop.client.LuckyClient.decode" title="Permalink to this definition">¶</a></dt>
+<dd><p>deserialize a message from LuckyServer and return it as a dictionary</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="luckyloop.client.LuckyClient.encode">
+<em class="property">static </em><code class="sig-name descname">encode</code><span class="sig-paren">(</span><em class="sig-param">condition</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/luckyloop/client.html#LuckyClient.encode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#luckyloop.client.LuckyClient.encode" title="Permalink to this definition">¶</a></dt>
+<dd><p>serialize a status dictionary for sending</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bytearray</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="luckyloop.client.LuckyClient.enquire">
+<code class="sig-name descname">enquire</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/luckyloop/client.html#LuckyClient.enquire"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#luckyloop.client.LuckyClient.enquire" title="Permalink to this definition">¶</a></dt>
+<dd><p>enquire about the current status and version of LuckyLoop</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="luckyloop.client.LuckyClient.frequency">
+<em class="property">property </em><code class="sig-name descname">frequency</code><a class="headerlink" href="#luckyloop.client.LuckyClient.frequency" title="Permalink to this definition">¶</a></dt>
+<dd><p>get the current frequency set on LuckyLoop</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="luckyloop.client.LuckyClient.phase">
+<em class="property">property </em><code class="sig-name descname">phase</code><a class="headerlink" href="#luckyloop.client.LuckyClient.phase" title="Permalink to this definition">¶</a></dt>
+<dd><p>get the current phase set on LuckyLoop</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="luckyloop.client.LuckyClient.query">
+<code class="sig-name descname">query</code><span class="sig-paren">(</span><em class="sig-param">message</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/luckyloop/client.html#LuckyClient.query"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#luckyloop.client.LuckyClient.query" title="Permalink to this definition">¶</a></dt>
+<dd><p>send and receive a message to LuckyLoop</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="luckyloop.client.LuckyClient.shutdown">
+<code class="sig-name descname">shutdown</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/luckyloop/client.html#LuckyClient.shutdown"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#luckyloop.client.LuckyClient.shutdown" title="Permalink to this definition">¶</a></dt>
+<dd><p>shuts LuckyLoop down gracefully</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="luckyloop.client.LuckyClient.threshold">
+<em class="property">property </em><code class="sig-name descname">threshold</code><a class="headerlink" href="#luckyloop.client.LuckyClient.threshold" title="Permalink to this definition">¶</a></dt>
+<dd><p>get the current threshold set on LuckyLoop</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="luckyloop.client.LuckyClient.trigger">
+<code class="sig-name descname">trigger</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/luckyloop/client.html#LuckyClient.trigger"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#luckyloop.client.LuckyClient.trigger" title="Permalink to this definition">¶</a></dt>
+<dd><p>trigger LuckyLoop</p>
+<p>Immediatly pulls the specified TRIGOUT to HIGH. LuckyLoop handles from then on, and by default it pulls it LOW after one cycle.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="sri-doc.html" class="btn btn-neutral float-left" title="Server Real-Time Interface" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Translational Neurosurgery
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

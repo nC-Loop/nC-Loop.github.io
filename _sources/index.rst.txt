@@ -12,9 +12,8 @@ Welcome to LuckyLoop's documentation!
 
    ringbuf-doc
    sri-doc
+   client-doc
 
-
-`Coverage Report <https://nc-loop.github.io/_htmlcov/index.html>`_
 
 
 
