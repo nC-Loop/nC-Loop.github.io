@@ -10,9 +10,10 @@ Welcome to LuckyLoop's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   ringbuf-doc
-   sri-doc
-   client-doc
+   ringbuf
+   sri
+   client
+   server
 
 
 

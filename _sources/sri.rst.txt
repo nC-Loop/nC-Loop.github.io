@@ -1,0 +1,6 @@
+Server Real-Time Interface
+--------------------------
+
+.. doxygenfile:: sri.h
+   :path: ../cdocs/xml
+   :no-link:

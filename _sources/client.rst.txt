@@ -1,0 +1,7 @@
+LuckyClient
+-----------
+
+`Coverage Report <https://nc-loop.github.io/_htmlcov/index.html>`_
+
+.. automodule:: luckyloop.client
+   :members: LuckyClient

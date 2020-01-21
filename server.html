@@ -1,0 +1,322 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>LuckyServer &mdash; LuckyLoop 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="LuckyClient" href="client.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> LuckyLoop
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="ringbuf.html">Ringbuffer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sri.html">Server Real-Time Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="client.html">LuckyClient</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">LuckyServer</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">LuckyLoop</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>LuckyServer</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/server.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="luckyserver">
+<h1>LuckyServer<a class="headerlink" href="#luckyserver" title="Permalink to this headline">¶</a></h1>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Defines</p>
+<dl class="define">
+<dt>
+<code class="sig-name descname">PORT</code></dt>
+<dd><p>port at which clients should expect the server. Defaults to 1219 </p>
+</dd></dl>
+
+<dl class="define">
+<dt>
+<code class="sig-name descname">MAX_LISTENERS</code></dt>
+<dd><p>how many listeners can be enqueued at max defaults to 1 </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Functions</p>
+<dl class="function">
+<dt>
+static void <code class="sig-name descname">error_exit</code><span class="sig-paren">(</span>char *<em> errorMessage</em><span class="sig-paren">)</span></dt>
+<dd><p>shuts the server down with an error message <dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">errorMessage</span></code>: the errormessage to stderr </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+int <code class="sig-name descname">send_status</code><span class="sig-paren">(</span>int<em> client</em>, condition  *<em> cond</em><span class="sig-paren">)</span></dt>
+<dd><p>send the current status to the connected client The status message will be encoded as defined by sri::condition_to_string <dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>0 if successful </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">client</span></code>: to whom to send the message </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cond</span></code>: the status information to be sent </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+void <code class="sig-name descname">removeSpaces</code><span class="sig-paren">(</span>char *<em> str</em><span class="sig-paren">)</span></dt>
+<dd><p>removes all spaces from a string </p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+int <code class="sig-name descname">accept_client</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd><p>accept a TCP/IP client blocks until a client connects <dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>the client file descriptor </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+int <code class="sig-name descname">start_server</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd><p>start and bind a TCP/IP server <dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>the server file descriptor </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+int <code class="sig-name descname">set_condition_from_arguments</code><span class="sig-paren">(</span>char *<em> arguments</em>, condition  *<em> condition</em><span class="sig-paren">)</span></dt>
+<dd><p>Overwrite an already existing condition based on arguments from a command message <dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">arguments</span></code>: the arguments part of the message received from a client the positional order of the arguments is &lt;threshold&gt;, &lt;frequency&gt;, &lt;phase&gt;, &lt;trigger&gt;. Each argument is either an integer to overwrite the current setting or an equality symbol to keep the current setting. For example if the message <code class="docutils literal notranslate"><span class="pre">[set_condition:</span> <span class="pre">=,</span> <span class="pre">=,</span> <span class="pre">12,</span> <span class="pre">0]</span></code> would be received, the arguments part would be <code class="docutils literal notranslate"><span class="pre">=,</span> <span class="pre">=,</span> <span class="pre">12,</span> <span class="pre">0</span></code> which would keep threshold and target phase untouched while the target_frequency is changed to 12 and the trigger is disarmed by setting it to zero. </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+int <code class="sig-name descname">recv_message</code><span class="sig-paren">(</span>int<em> client</em>, condition  *<em> new_status</em><span class="sig-paren">)</span></dt>
+<dd><p>This function reads a message from the client and executes the given command.</p>
+<p>The message format is a string formatted with positional arguments <p>Format: [&lt;command&gt;: &lt;arg1&gt;, &lt;arg2&gt;, …, &lt;argN&gt;] </p>
+<p> Implemented are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">[set_condition:</span> <span class="pre">&lt;threshold&gt;,</span> <span class="pre">&lt;frequency&gt;,</span> <span class="pre">&lt;phase&gt;,</span> <span class="pre">&lt;trigger&gt;]</span></code> where each argument can be either an integer or the equality symbol =.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[shutdown:]</span></code> shuts the server down gracefully.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[send_status:]</span></code> just return the current conditions without changing anything</p></li>
+</ul>
+</p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>EXIT_SUCCESS or error code </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">client</span></code>: is the socket from whom the server will read. This is the client returned by :func:<code class="docutils literal notranslate"><span class="pre">~.accept_client()</span></code> </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">condition</span></code>: *new_status the status object which will be filled based on the message received from the client </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+int <code class="sig-name descname">loop</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd><p>The main loop accepting clients, parsing messages and executing commands</p>
+<p>Will be started when the executable is started</p>
+<p><dl class="simple">
+<dt><strong>Note</strong></dt><dd><p>shut the loop down by sending the shutdown command with a client </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="client.html" class="btn btn-neutral float-left" title="LuckyClient" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Translational Neurosurgery
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
