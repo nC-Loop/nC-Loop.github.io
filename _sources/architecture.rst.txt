@@ -1,0 +1,8 @@
+Architecture
+------------
+
+Elements in gray are not yet sufficiently tested.
+
+.. graphviz:: architecture.dot
+  :name: dependencies
+  :layout: dot
