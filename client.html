@@ -83,6 +83,7 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ringbuf.html">Ringbuffer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sri.html">Server Real-Time Interface</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">LuckyClient</a></li>
@@ -161,7 +162,8 @@
 <span class="n">lucky</span> <span class="o">=</span> <span class="n">LuckyClient</span><span class="p">()</span>
 <span class="n">lucky</span><span class="o">.</span><span class="n">frequency</span> <span class="o">=</span> <span class="mi">20</span>  <span class="n">sets</span> <span class="n">the</span> <span class="n">target</span> <span class="n">frequency</span> <span class="n">to</span> <span class="mi">20</span>
 <span class="n">lucky</span><span class="o">.</span><span class="n">phase</span> <span class="o">=</span> <span class="mi">2</span> <span class="c1"># sets the target phase to 2</span>
-<span class="n">lucky</span><span class="o">.</span><span class="n">trigger</span><span class="p">()</span> <span class="c1"># triggers immediatly</span>
+<span class="n">lucky</span><span class="o">.</span><span class="n">trigger</span><span class="p">()</span>
+<span class="c1"># triggers as soon as the target phase for the target frequency is met</span>
 </pre></div>
 </div>
 <dl class="class">
