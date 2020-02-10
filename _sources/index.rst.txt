@@ -9,19 +9,18 @@ Welcome to LuckyLoop's documentation!
 LuckyLoop is a real-time application running on neuroConns realtime-platform.
 
 
+.. toctree::
+   :maxdepth: 2
+   :caption: LuckyClient:
+
+   client
 
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: LuckyLoop:
 
    architecture
-   ringbuf
-   sri
-   client
-   server
-
-
 
 
 

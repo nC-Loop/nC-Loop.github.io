@@ -1,0 +1,7 @@
+Goertzel
+********
+
+
+.. doxygenfile:: goertzel.h
+   :path: ../cdocs/xml
+   :no-link:

@@ -1,5 +1,5 @@
-Server Real-Time Interface
---------------------------
+libsri.so
+---------
 
 .. doxygenfile:: sri.h
    :path: ../cdocs/xml

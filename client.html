@@ -36,8 +36,8 @@
   <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="LuckyServer" href="server.html" />
-    <link rel="prev" title="Server Real-Time Interface" href="sri.html" /> 
+    <link rel="next" title="Architecture" href="architecture.html" />
+    <link rel="prev" title="Welcome to LuckyLoop’s documentation!" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -81,13 +81,18 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p class="caption"><span class="caption-text">LuckyClient:</span></p>
 <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">LuckyClient</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#python-api">Python API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mockserver">MockServer</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">LuckyLoop:</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ringbuf.html">Ringbuffer</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sri.html">Server Real-Time Interface</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">LuckyClient</a></li>
-<li class="toctree-l1"><a class="reference internal" href="server.html">LuckyServer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html#elements">Elements</a></li>
 </ul>
 
             
@@ -155,9 +160,11 @@
   <div class="section" id="luckyclient">
 <h1>LuckyClient<a class="headerlink" href="#luckyclient" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference external" href="https://nc-loop.github.io/_htmlcov/index.html">Coverage Report</a></p>
-<span class="target" id="module-luckyloop.client"></span><p>LuckyClient is the python interface to remote control LuckyLoop over TCP/IP</p>
-<p class="rubric">Example</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">luckyloop.client</span> <span class="kn">import</span> <span class="n">LuckyClient</span>
+<span class="target" id="module-luckyloop.client"></span><div class="section" id="python-api">
+<h2>Python API<a class="headerlink" href="#python-api" title="Permalink to this headline">¶</a></h2>
+<p>LuckyClient is the python interface to remote control LuckyLoop over TCP/IP</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">luckyloop.client</span> <span class="kn">import</span> <span class="n">LuckyClient</span>
 
 <span class="n">lucky</span> <span class="o">=</span> <span class="n">LuckyClient</span><span class="p">()</span>
 <span class="n">lucky</span><span class="o">.</span><span class="n">frequency</span> <span class="o">=</span> <span class="mi">20</span>  <span class="n">sets</span> <span class="n">the</span> <span class="n">target</span> <span class="n">frequency</span> <span class="n">to</span> <span class="mi">20</span>
@@ -166,6 +173,7 @@
 <span class="c1"># triggers as soon as the target phase for the target frequency is met</span>
 </pre></div>
 </div>
+</div></blockquote>
 <dl class="class">
 <dt id="luckyloop.client.LuckyClient">
 <em class="property">class </em><code class="sig-name descname">LuckyClient</code><span class="sig-paren">(</span><em class="sig-param">host='127.0.0.1'</em>, <em class="sig-param">port=1219</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/luckyloop/client.html#LuckyClient"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#luckyloop.client.LuckyClient" title="Permalink to this definition">¶</a></dt>
@@ -278,6 +286,27 @@
 </dd></dl>
 
 </div>
+<span class="target" id="module-luckyloop.mock"></span><div class="section" id="mockserver">
+<h2>MockServer<a class="headerlink" href="#mockserver" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="luckyloop.mock.mock">
+<code class="sig-name descname">mock</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/luckyloop/mock.html#mock"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#luckyloop.mock.mock" title="Permalink to this definition">¶</a></dt>
+<dd><p>start a mock LuckyServer for testing and development</p>
+<p>either from the command line with</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>luckymock
+</pre></div>
+</div>
+<p>or from within python with</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">luckyloop.mock</span> <span class="kn">import</span> <span class="n">mock</span>
+<span class="n">server</span> <span class="o">=</span> <span class="n">mock</span><span class="p">()</span>
+<span class="n">server</span><span class="o">.</span><span class="n">await_running</span><span class="p">()</span>
+<span class="c1"># kill it later with server.kill()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+</div>
 
 
            </div>
@@ -287,10 +316,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="server.html" class="btn btn-neutral float-right" title="LuckyServer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="architecture.html" class="btn btn-neutral float-right" title="Architecture" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="sri.html" class="btn btn-neutral float-left" title="Server Real-Time Interface" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to LuckyLoop’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Server Real-Time Interface &mdash; LuckyLoop 0.1.0 documentation</title>
+  <title>libsri.so &mdash; LuckyLoop 0.1.0 documentation</title>
   
 
   
@@ -36,7 +36,7 @@
   <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="LuckyClient" href="client.html" />
+    <link rel="next" title="LuckyServer" href="server.html" />
     <link rel="prev" title="Ringbuffer" href="ringbuf.html" /> 
 </head>
 
@@ -81,13 +81,21 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p class="caption"><span class="caption-text">LuckyClient:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="client.html">LuckyClient</a></li>
+</ul>
+<p class="caption"><span class="caption-text">LuckyLoop:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ringbuf.html">Ringbuffer</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Server Real-Time Interface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="client.html">LuckyClient</a></li>
-<li class="toctree-l1"><a class="reference internal" href="server.html">LuckyServer</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="architecture.html#elements">Elements</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ringbuf.html">Ringbuffer</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">libsri.so</a></li>
+<li class="toctree-l2"><a class="reference internal" href="server.html">LuckyServer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="goertzel.html">Goertzel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="client.html">LuckyClient</a></li>
+</ul>
+</li>
 </ul>
 
             
@@ -133,7 +141,9 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Server Real-Time Interface</li>
+          <li><a href="architecture.html">Architecture</a> &raquo;</li>
+        
+      <li>libsri.so</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -152,8 +162,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="server-real-time-interface">
-<h1>Server Real-Time Interface<a class="headerlink" href="#server-real-time-interface" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="libsri-so">
+<h1>libsri.so<a class="headerlink" href="#libsri-so" title="Permalink to this headline">¶</a></h1>
 <p>The SRI implements an interface between LuckyServer and LuckyMain</p>
 <p>The LuckyMain runs a continuous loop. At the start of every loop, it reads the current target conditions from the primary conditions stored in a cond_pair. These target conditions are e.g. the target phase, frequency and power threshold.</p>
 <p>This primary condition is shared with the LuckyServer, i.e. it can be written and read from by this external process. While the LuckyServer writes into this condition, LuckyMain uses the secondary. LuckyMain checks during each loop whether primary and secondary are equal, and if this is not the case, overwrites the secondary settings with a copy of the primary settings.</p>
@@ -311,7 +321,7 @@ condition <code class="sig-name descname">secondary</code></dt>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="client.html" class="btn btn-neutral float-right" title="LuckyClient" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="server.html" class="btn btn-neutral float-right" title="LuckyServer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="ringbuf.html" class="btn btn-neutral float-left" title="Ringbuffer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

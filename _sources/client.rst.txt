@@ -5,3 +5,6 @@ LuckyClient
 
 .. automodule:: luckyloop.client
    :members: LuckyClient
+
+.. automodule:: luckyloop.mock
+   :members: mock

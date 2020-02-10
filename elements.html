@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Search &mdash; LuckyLoop 0.1.0 documentation</title>
+  <title>Elements &mdash; LuckyLoop 0.1.0 documentation</title>
   
 
   
@@ -25,7 +25,6 @@
         <script type="text/javascript" src="_static/underscore.js"></script>
         <script type="text/javascript" src="_static/doctools.js"></script>
         <script type="text/javascript" src="_static/language_data.js"></script>
-        <script type="text/javascript" src="_static/searchtools.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -36,7 +35,9 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="#" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Ringbuffer" href="ringbuf.html" />
+    <link rel="prev" title="Architecture" href="architecture.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -63,7 +64,7 @@
 
           
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="#" method="get">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
@@ -85,9 +86,15 @@
 <li class="toctree-l1"><a class="reference internal" href="client.html">LuckyClient</a></li>
 </ul>
 <p class="caption"><span class="caption-text">LuckyLoop:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
-<li class="toctree-l1"><a class="reference internal" href="architecture.html#elements">Elements</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Elements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ringbuf.html">Ringbuffer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sri.html">Server Real-Time Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="server.html">LuckyServer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="goertzel.html">Goertzel Algorithm</a></li>
+</ul>
+</li>
 </ul>
 
             
@@ -133,12 +140,14 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Search</li>
+      <li>Elements</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
+            <a href="_sources/elements.rst.txt" rel="nofollow"> View page source</a>
+          
         
       </li>
     
@@ -150,24 +159,32 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <noscript>
-  <div id="fallback" class="admonition warning">
-    <p class="last">
-      Please activate JavaScript to enable the search
-      functionality.
-    </p>
-  </div>
-  </noscript>
+  <div class="section" id="elements">
+<h1>Elements<a class="headerlink" href="#elements" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="ringbuf.html">Ringbuffer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sri.html">Server Real-Time Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="server.html">LuckyServer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="goertzel.html">Goertzel Algorithm</a></li>
+</ul>
+</div>
+</div>
 
-  
-  <div id="search-results">
-  
-  </div>
 
            </div>
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="ringbuf.html" class="btn btn-neutral float-right" title="Ringbuffer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="architecture.html" class="btn btn-neutral float-left" title="Architecture" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
@@ -200,14 +217,7 @@
   
   
     
-  
-  <script type="text/javascript">
-    jQuery(function() { Search.loadIndex("searchindex.js"); });
-  </script>
-  
-  <script type="text/javascript" id="searchindexloader"></script>
    
-
 
 </body>
 </html>

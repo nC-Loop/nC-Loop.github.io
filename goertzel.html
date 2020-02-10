@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Architecture &mdash; LuckyLoop 0.1.0 documentation</title>
+  <title>Goertzel &mdash; LuckyLoop 0.1.0 documentation</title>
   
 
   
@@ -36,8 +36,7 @@
   <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Ringbuffer" href="ringbuf.html" />
-    <link rel="prev" title="LuckyClient" href="client.html" /> 
+    <link rel="prev" title="LuckyServer" href="server.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -87,12 +86,12 @@
 </ul>
 <p class="caption"><span class="caption-text">LuckyLoop:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Architecture</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#elements">Elements</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="architecture.html#elements">Elements</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="ringbuf.html">Ringbuffer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sri.html">libsri.so</a></li>
 <li class="toctree-l2"><a class="reference internal" href="server.html">LuckyServer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="goertzel.html">Goertzel</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Goertzel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="client.html">LuckyClient</a></li>
 </ul>
 </li>
@@ -141,13 +140,15 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Architecture</li>
+          <li><a href="architecture.html">Architecture</a> &raquo;</li>
+        
+      <li>Goertzel</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/architecture.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/goertzel.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -160,72 +161,84 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="architecture">
-<h1>Architecture<a class="headerlink" href="#architecture" title="Permalink to this headline">¶</a></h1>
-<p>Elements in gray are not yet sufficiently tested.</p>
-<div class="graphviz"><img src="_images/graphviz-a1903ba8b63a44de34b1a415e9634c1f88749ae0.png" alt="digraph G{
-        
-    compound=true;
-    rankdir = LR;
-    
-    lsl[style=filled]
-    main[style=filled]
-    smoketests[style=filled]
-    ecat_config[style=filled]
-    goertzel
-    testdata[style=filled]    
+  <div class="section" id="goertzel">
+<h1>Goertzel<a class="headerlink" href="#goertzel" title="Permalink to this headline">¶</a></h1>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Defines</p>
+<dl class="define">
+<dt>
+<code class="sig-name descname">PI</code></dt>
+<dd></dd></dl>
 
-    subgraph cluster0 {
-      label = &quot;LuckyLoop Real-Time-Application:\n phase-dependent trigger&quot;
-      main -&gt; ringbuffer;
-      main -&gt; lsl;
-      main -&gt; goertzel;
-      goertzel -&gt; ringbuffer;
-      main -&gt; smoketests;
-      smoketests -&gt; goertzel;
-      smoketests -&gt; testdata;
-      main -&gt; ecat_config;
-      }
+<dl class="define">
+<dt>
+<code class="sig-name descname">TAUPI</code></dt>
+<dd></dd></dl>
 
-    subgraph cluster1{
-     label= &quot;libsri.so&quot;
-     sri
-    }
-    
-    subgraph cluster2{
-     label= &quot;LuckyServer: \nrt-Interface&quot;
-     server
-    }
-    
-    subgraph cluster3{
-     label= &quot;Python Clients&quot;
-     LuckyClient
-     LSLInlet[label=&quot;LSL-Inlet&quot;]
-    }
-    
-
-    lsl -&gt; LSLInlet
-    server -&gt; sri[dir=&quot;both&quot;, lhead=cluster1];
-    LuckyClient -&gt; server[lhead=cluster2];
-    main -&gt; sri[dir=&quot;both&quot;, lhead=cluster1];
-    smoketests -&gt; sri[lhead=cluster1];
-    
-   }" class="graphviz" /></div>
 </div>
-<div class="section" id="elements">
-<h1>Elements<a class="headerlink" href="#elements" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="ringbuf.html">Ringbuffer</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sri.html">libsri.so</a></li>
-<li class="toctree-l1"><a class="reference internal" href="server.html">LuckyServer</a></li>
-<li class="toctree-l1"><a class="reference internal" href="goertzel.html">Goertzel</a></li>
-<li class="toctree-l1"><a class="reference internal" href="client.html">LuckyClient</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="client.html#python-api">Python API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="client.html#mockserver">MockServer</a></li>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Functions</p>
+<dl class="function">
+<dt>
+double <code class="sig-name descname">double_modulo</code><span class="sig-paren">(</span>double<em> n</em>, double<em> m</em><span class="sig-paren">)</span></dt>
+<dd><p>takes the modulo of a value. <dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>b the remainder </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">n</span></code>: the starting value </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">m</span></code>: the divisor </p></li>
 </ul>
-</li>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+double complex <code class="sig-name descname">goertzel_coefficients</code><span class="sig-paren">(</span>double *<em> ringbuffer_data</em>, int<em> ringbuffer_len</em>, int<em> target_frequency</em>, int<em> sampling_rate</em><span class="sig-paren">)</span></dt>
+<dd><p>calculates the Goertzel transformation</p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>a complex value calculated for the target_frequency </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ringbuffer_data</span></code>: a pointer to the data array in the ringbuffer </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ringbuffer_len</span></code>: how many past samples to use for the algorithm </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">target_frequency</span></code>: for which frequency to calculate the transformation </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sampling_rate</span></code>: the sampling rate of the data in the ringbuffer </p></li>
 </ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+double <code class="sig-name descname">calc_power</code><span class="sig-paren">(</span>double complex<em> z</em><span class="sig-paren">)</span></dt>
+<dd><p>calculates the power from a precomputed complex number </p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+double <code class="sig-name descname">calc_phase</code><span class="sig-paren">(</span>double complex<em> z</em><span class="sig-paren">)</span></dt>
+<dd><p>calculates the phase from a precomputed complex number </p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+int <code class="sig-name descname">phase_to_trigger</code><span class="sig-paren">(</span>double<em> current_phase</em>, double<em> last_phase</em>, double<em> target_phase</em><span class="sig-paren">)</span></dt>
+<dd><p>decides if the target phase will be reached in the next step &#64;params: double current_phase: Current phase double last_phase: Last phase double: target_phase: Target phase <ul class="simple">
+<li><p>1 for true (target phase will be reached in next step) </p></li>
+</ul>
+<dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>:<ul class="simple">
+<li><p>0 for false (will not reach target phase)</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
 </div>
 </div>
 
@@ -237,10 +250,8 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="ringbuf.html" class="btn btn-neutral float-right" title="Ringbuffer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
-      
-        <a href="client.html" class="btn btn-neutral float-left" title="LuckyClient" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="server.html" class="btn btn-neutral float-left" title="LuckyServer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
