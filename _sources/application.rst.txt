@@ -1,0 +1,17 @@
+Architecture
+------------
+
+Elements in gray are not yet sufficiently tested.
+
+.. graphviz:: architecture.dot
+  :name: dependencies
+  :layout: dot
+
+Elements
+--------
+
+.. toctree::
+   :maxdepth: 2
+   :glob:
+
+   elements/*

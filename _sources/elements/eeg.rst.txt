@@ -1,0 +1,8 @@
+EEG Streaming
+*************
+
+
+.. doxygenfile:: eeg.h
+   :path: ../cdocs/xml
+   :no-link:
+

@@ -1,0 +1,7 @@
+LuckyServer
+-----------
+
+
+.. doxygenfile:: server.h
+   :path: ../cdocs/xml
+   :no-link:

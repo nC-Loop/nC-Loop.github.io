@@ -20,7 +20,7 @@ LuckyLoop is a real-time application running on neuroConns realtime-platform.
    :maxdepth: 2
    :caption: LuckyLoop:
 
-   architecture
+   application
 
 
 

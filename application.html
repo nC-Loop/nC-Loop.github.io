@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Python Module Index &mdash; LuckyLoop 0.1.0 documentation</title>
+  <title>Architecture &mdash; LuckyLoop 0.1.0 documentation</title>
   
 
   
@@ -36,9 +36,8 @@
   <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
- 
-
-
+    <link rel="next" title="EEG Streaming" href="elements/ecat.html" />
+    <link rel="prev" title="LuckyClient" href="client.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -87,9 +86,16 @@
 <li class="toctree-l1"><a class="reference internal" href="client.html">LuckyClient</a></li>
 </ul>
 <p class="caption"><span class="caption-text">LuckyLoop:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="application.html">Architecture</a></li>
-<li class="toctree-l1"><a class="reference internal" href="application.html#elements">Elements</a></li>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#elements">Elements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="elements/ecat.html">EEG Streaming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="elements/goertzel.html">Goertzel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="elements/ringbuf.html">Ringbuffer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="elements/server.html">LuckyServer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="elements/sri.html">libsri.so</a></li>
+</ul>
+</li>
 </ul>
 
             
@@ -135,10 +141,14 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Python Module Index</li>
+      <li>Architecture</li>
     
     
       <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/application.rst.txt" rel="nofollow"> View page source</a>
+          
         
       </li>
     
@@ -150,40 +160,85 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
+  <div class="section" id="architecture">
+<h1>Architecture<a class="headerlink" href="#architecture" title="Permalink to this headline">¶</a></h1>
+<p>Elements in gray are not yet sufficiently tested.</p>
+<div class="graphviz"><img src="_images/graphviz-50425f6b8740d832cf1bf749d773258367bcd463.png" alt="digraph G{
+        
+    compound=true;
+    rankdir = LR;
+    
+    lsl[style=filled]
+    main[style=filled]
+    smoketests[style=filled]
+    ecat_config[style=filled]
+    goertzel
+    testdata[style=filled]    
 
-   <h1>Python Module Index</h1>
+    subgraph cluster0 {
+      label = &quot;LuckyLoop Real-Time-Application:\n phase-dependent trigger&quot;
+      main -&gt; ringbuffer;
+      main -&gt; lsl;
+      main -&gt; goertzel;
+      goertzel -&gt; ringbuffer;
+      main -&gt; smoketests;
+      smoketests -&gt; goertzel;
+      smoketests -&gt; testdata;
+      main -&gt; ecat_config;
+      }
 
-   <div class="modindex-jumpbox">
-   <a href="#cap-l"><strong>l</strong></a>
-   </div>
+    subgraph cluster1{
+     label= &quot;libsri.so&quot;
+     sri
+    }
+    
+    subgraph cluster2{
+     label= &quot;LuckyServer: \nrt-Interface&quot;
+     server
+    }
+    
+    subgraph cluster3{
+     label= &quot;Python Clients&quot;
+     LuckyClient
+     LSLInlet[label=&quot;LSL-Inlet&quot;]
+    }
+    
 
-   <table class="indextable modindextable">
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-l"><td></td><td>
-       <strong>l</strong></td><td></td></tr>
-     <tr>
-       <td><img src="_static/minus.png" class="toggler"
-              id="toggle-1" style="display: none" alt="-" /></td>
-       <td>
-       <code class="xref">luckyloop</code></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="client.html#module-luckyloop.client"><code class="xref">luckyloop.client</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="client.html#module-luckyloop.mock"><code class="xref">luckyloop.mock</code></a></td><td>
-       <em></em></td></tr>
-   </table>
+    lsl -&gt; LSLInlet
+    server -&gt; sri[dir=&quot;both&quot;, lhead=cluster1];
+    LuckyClient -&gt; server[lhead=cluster2];
+    main -&gt; sri[dir=&quot;both&quot;, lhead=cluster1];
+    smoketests -&gt; sri[lhead=cluster1];
+    
+   }" class="graphviz" /></div>
+</div>
+<div class="section" id="elements">
+<h1>Elements<a class="headerlink" href="#elements" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="elements/ecat.html">EEG Streaming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="elements/goertzel.html">Goertzel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="elements/ringbuf.html">Ringbuffer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="elements/server.html">LuckyServer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="elements/sri.html">libsri.so</a></li>
+</ul>
+</div>
+</div>
 
 
            </div>
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="elements/ecat.html" class="btn btn-neutral float-right" title="EEG Streaming" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="client.html" class="btn btn-neutral float-left" title="LuckyClient" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

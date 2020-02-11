@@ -1,0 +1,6 @@
+libsri.so
+---------
+
+.. doxygenfile:: sri.h
+   :path: ../cdocs/xml
+   :no-link:

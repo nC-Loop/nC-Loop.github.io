@@ -1,0 +1,7 @@
+Ringbuffer
+----------
+
+
+.. doxygenfile:: ringbuf.h
+   :path: ../cdocs/xml
+   :no-link:

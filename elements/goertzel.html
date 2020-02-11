@@ -1,0 +1,295 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Goertzel &mdash; LuckyLoop 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Ringbuffer" href="ringbuf.html" />
+    <link rel="prev" title="EEG Streaming" href="ecat.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> LuckyLoop
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">LuckyClient:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../client.html">LuckyClient</a></li>
+</ul>
+<p class="caption"><span class="caption-text">LuckyLoop:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../application.html">Architecture</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../application.html#elements">Elements</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ecat.html">EEG Streaming</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Goertzel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ringbuf.html">Ringbuffer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="server.html">LuckyServer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sri.html">libsri.so</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">LuckyLoop</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../application.html">Architecture</a> &raquo;</li>
+        
+      <li>Goertzel</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/elements/goertzel.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="goertzel">
+<h1>Goertzel<a class="headerlink" href="#goertzel" title="Permalink to this headline">¶</a></h1>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Defines</p>
+<dl class="define">
+<dt>
+<code class="sig-name descname">PI</code></dt>
+<dd></dd></dl>
+
+<dl class="define">
+<dt>
+<code class="sig-name descname">TAUPI</code></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Functions</p>
+<dl class="function">
+<dt>
+double <code class="sig-name descname">double_modulo</code><span class="sig-paren">(</span>double<em> n</em>, double<em> m</em><span class="sig-paren">)</span></dt>
+<dd><p>takes the modulo of a value. <dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>b the remainder </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">n</span></code>: the starting value </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">m</span></code>: the divisor </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+double complex <code class="sig-name descname">goertzel_coefficients</code><span class="sig-paren">(</span>double *<em> ringbuffer_data</em>, int<em> ringbuffer_len</em>, int<em> target_frequency</em>, int<em> sampling_rate</em><span class="sig-paren">)</span></dt>
+<dd><p>calculates the Goertzel transformation</p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>a complex value calculated for the target_frequency </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ringbuffer_data</span></code>: a pointer to the data array in the ringbuffer </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ringbuffer_len</span></code>: how many past samples to use for the algorithm </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">target_frequency</span></code>: for which frequency to calculate the transformation </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sampling_rate</span></code>: the sampling rate of the data in the ringbuffer </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+double <code class="sig-name descname">calc_power</code><span class="sig-paren">(</span>double complex<em> z</em><span class="sig-paren">)</span></dt>
+<dd><p>calculates the power from a precomputed complex number </p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+double <code class="sig-name descname">calc_phase</code><span class="sig-paren">(</span>double complex<em> z</em><span class="sig-paren">)</span></dt>
+<dd><p>calculates the phase from a precomputed complex number </p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+int <code class="sig-name descname">phase_to_trigger</code><span class="sig-paren">(</span>double<em> current_phase</em>, double<em> last_phase</em>, double<em> target_phase</em><span class="sig-paren">)</span></dt>
+<dd><p>decides if the target phase will be reached in the next step &#64;params: double current_phase: Current phase double last_phase: Last phase double: target_phase: Target phase <ul class="simple">
+<li><p>1 for true (target phase will be reached in next step) </p></li>
+</ul>
+<dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>:<ul class="simple">
+<li><p>0 for false (will not reach target phase)</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="ringbuf.html" class="btn btn-neutral float-right" title="Ringbuffer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="ecat.html" class="btn btn-neutral float-left" title="EEG Streaming" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Translational Neurosurgery
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
