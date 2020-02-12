@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>eCat &mdash; LuckyLoop 0.1.0 documentation</title>
+  <title>Publish with LSL &mdash; LuckyLoop 0.1.0 documentation</title>
   
 
   
@@ -36,8 +36,8 @@
   <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Goertzel" href="goertzel.html" />
-    <link rel="prev" title="Main App" href="app.html" /> 
+    <link rel="next" title="Ringbuffer" href="ringbuf.html" />
+    <link rel="prev" title="Goertzel" href="goertzel.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -91,9 +91,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../application.html#architecture">Architecture</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../application.html#elements">Elements</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="app.html">Main App</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">eCat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ecat.html">eCat</a></li>
 <li class="toctree-l2"><a class="reference internal" href="goertzel.html">Goertzel</a></li>
-<li class="toctree-l2"><a class="reference internal" href="publish.html">Publish with LSL</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Publish with LSL</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ringbuf.html">Ringbuffer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="server.html">LuckyServer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sri.html">libsri.so</a></li>
@@ -151,13 +151,13 @@
         
           <li><a href="../application.html">Device</a> &raquo;</li>
         
-      <li>eCat</li>
+      <li>Publish with LSL</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/elements/ecat.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/elements/publish.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -170,32 +170,26 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="ecat">
-<h1>eCat<a class="headerlink" href="#ecat" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="publish-with-lsl">
+<h1>Publish with LSL<a class="headerlink" href="#publish-with-lsl" title="Permalink to this headline">¶</a></h1>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Defines</p>
 <dl class="define">
 <dt>
-<code class="sig-name descname">servername</code></dt>
-<dd><p>the hostname address for connecting with the EtherCat Main </p>
+<code class="sig-name descname">OUTLET_NAME</code></dt>
+<dd><p>The name of the outlet. defaults to LuckyLoop </p>
 </dd></dl>
 
 <dl class="define">
 <dt>
-<code class="sig-name descname">SIGNAL_MAX_AMPLITUDE</code></dt>
-<dd><p>the maximal signal amplitude of the EEG slave </p>
+<code class="sig-name descname">OUTLET_CHANNEL_COUNT</code></dt>
+<dd><p>the maximal number of channels for publication with LSL </p>
 </dd></dl>
 
 <dl class="define">
 <dt>
-<code class="sig-name descname">SIGNAL_RESOLUTION</code></dt>
-<dd><p>the signal resolution of the EEG slave </p>
-</dd></dl>
-
-<dl class="define">
-<dt>
-<code class="sig-name descname">SAMPLING_RATE</code></dt>
-<dd><p>the sampling rate of the EEG slave </p>
+<code class="sig-name descname">MAX_APPENDIX_COUNT</code></dt>
+<dd><p>the maximal number of appendable items for publication with LSL </p>
 </dd></dl>
 
 </div>
@@ -203,12 +197,13 @@
 <p class="breathe-sectiondef-title rubric">Functions</p>
 <dl class="function">
 <dt>
-int32_t <code class="sig-name descname">read32BitFromBuffer</code><span class="sig-paren">(</span>const unsigned char *<em> buffer</em><span class="sig-paren">)</span></dt>
-<dd><p>read a 32bit float from the EEG slave buffer <dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>data the variable to fill with data from the buffer </p>
-</dd>
+void <code class="sig-name descname">stack_outlet_sample</code><span class="sig-paren">(</span>int32_t *<em> outlet_sample</em>, const int32_t<em> sample_index</em>, const int32_t *<em> eegsample</em>, const int32_t *<em> appendix</em><span class="sig-paren">)</span></dt>
+<dd><p>stack different items for publication with an LSL outlet order of array will be in order of the arguments, i.e. index, eeg, appendix. <dl class="simple">
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">buffer</span></code>: the buffer to read from </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">outlet_sample</span></code>: array of data to be published with LSL, items will be stacked into this array </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sample_index</span></code>: monotonic count index of the current sample </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">eeg_sample</span></code>: array with the current EEG samples </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">appendix</span></code>: array with additional values to be appended after the EEG samples </p></li>
 </ul>
 </dd>
 </dl>
@@ -217,11 +212,12 @@ int32_t <code class="sig-name descname">read32BitFromBuffer</code><span class="s
 
 <dl class="function">
 <dt>
-void <code class="sig-name descname">write32BitToBuffer</code><span class="sig-paren">(</span>unsigned char *<em> buffer</em>, const unsigned int<em> data</em><span class="sig-paren">)</span></dt>
-<dd><p>writed a 32bit float from the EEG slave buffer <dl class="simple">
+void <code class="sig-name descname">stack_variadic</code><span class="sig-paren">(</span>int32_t *<em> stacked</em>, const int<em> variadic_count</em>, ...<span class="sig-paren">)</span></dt>
+<dd><p>stack different items for publication with an LSL outlet <dl class="simple">
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">buffer</span></code>: the buffer to write into </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">data</span></code>: the data to write into the buffer </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">stacked</span></code>: array to be stacked into </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">variadic_count</span></code>: how many single items will be appended after the appendix. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">variadic</span></code>: appendix of len variadic_count. each item must be of type int32_t </p></li>
 </ul>
 </dd>
 </dl>
@@ -230,24 +226,25 @@ void <code class="sig-name descname">write32BitToBuffer</code><span class="sig-p
 
 <dl class="function">
 <dt>
-void <code class="sig-name descname">read_eegchannels_from_buffer</code><span class="sig-paren">(</span>int32_t *<em> eeg_sample</em>, const unsigned char *<em> ecat_buffer</em><span class="sig-paren">)</span></dt>
-<dd><p>read all eeg channels from the EtherCat Buffer <dl class="simple">
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">ecat_buffer</span></code>: the EtherCat Buffer used for reading </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">eeg_sample</span></code>: will be written to: the array storing the values of the current EEG samples </p></li>
-</ul>
-</dd>
-</dl>
-</p>
+lsl_outlet <code class="sig-name descname">init_lsl_outlet</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd><p>initialize the LSL outlet for publishing </p>
 </dd></dl>
 
 <dl class="function">
 <dt>
-void <code class="sig-name descname">get_trigger_states</code><span class="sig-paren">(</span>int32_t *<em> trigger_states</em>, unsigned char *<em> ecatMISO</em><span class="sig-paren">)</span></dt>
-<dd><p>get the current state of all triggers <dl class="simple">
+unsigned int <code class="sig-name descname">aton</code><span class="sig-paren">(</span>char *<em> ipaddress</em><span class="sig-paren">)</span></dt>
+<dd><p>convert an IP-address string to unsigned interer </p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+char* <code class="sig-name descname">get_adapter_address</code><span class="sig-paren">(</span>char *<em> adaptername</em>, size_t<em> name_len</em><span class="sig-paren">)</span></dt>
+<dd><p>get the IP address of an adapter specified by its name <dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>the ip address as a string. convert it to an integer with aton </p>
+</dd>
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">trigger_states</span></code>: the array to fill with the current states </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">ecat_MISO</span></code>: the EtherCat Buffer used for reading* </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">adaptername</span></code>: the name of the adapter, e.h. eth0, eth1 or enp5s0 </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">name_len</span></code>: the length of the adaptername string </p></li>
 </ul>
 </dd>
 </dl>
@@ -259,9 +256,8 @@ void <code class="sig-name descname">get_trigger_states</code><span class="sig-p
 <p class="breathe-sectiondef-title rubric">Variables</p>
 <dl class="variable">
 <dt>
-<code class="sig-name descname">const int channeladdress[EEG_CHANNEL_COUNT]</code></dt>
-<dd><p>the memory address for the eeg channels in the EtherCat Buffer</p>
-<p>EEG_CHANNEL_COUNT and actual addresses are defined in ecat_config.h </p>
+<code class="sig-name descname">char* channel_labels[OUTLET_CHANNEL_COUNT]</code></dt>
+<dd><p>the channel names for publication with LSL </p>
 </dd></dl>
 
 </div>
@@ -275,10 +271,10 @@ void <code class="sig-name descname">get_trigger_states</code><span class="sig-p
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="goertzel.html" class="btn btn-neutral float-right" title="Goertzel" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="ringbuf.html" class="btn btn-neutral float-right" title="Ringbuffer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="app.html" class="btn btn-neutral float-left" title="Main App" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="goertzel.html" class="btn btn-neutral float-left" title="Goertzel" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

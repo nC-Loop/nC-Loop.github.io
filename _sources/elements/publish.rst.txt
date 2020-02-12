@@ -1,0 +1,6 @@
+Publish with LSL
+****************
+
+.. doxygenfile:: publish.h
+   :path: ../cdocs/xml
+   :no-link:

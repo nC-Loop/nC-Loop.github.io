@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>eCat &mdash; LuckyLoop 0.1.0 documentation</title>
+  <title>Main App &mdash; LuckyLoop 0.1.0 documentation</title>
   
 
   
@@ -36,8 +36,8 @@
   <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Goertzel" href="goertzel.html" />
-    <link rel="prev" title="Main App" href="app.html" /> 
+    <link rel="next" title="eCat" href="ecat.html" />
+    <link rel="prev" title="Device" href="../application.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -90,8 +90,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../application.html">Device</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../application.html#architecture">Architecture</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../application.html#elements">Elements</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="app.html">Main App</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">eCat</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Main App</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ecat.html">eCat</a></li>
 <li class="toctree-l2"><a class="reference internal" href="goertzel.html">Goertzel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="publish.html">Publish with LSL</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ringbuf.html">Ringbuffer</a></li>
@@ -151,13 +151,13 @@
         
           <li><a href="../application.html">Device</a> &raquo;</li>
         
-      <li>eCat</li>
+      <li>Main App</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/elements/ecat.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/elements/app.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -170,98 +170,20 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="ecat">
-<h1>eCat<a class="headerlink" href="#ecat" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="main-app">
+<h1>Main App<a class="headerlink" href="#main-app" title="Permalink to this headline">¶</a></h1>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Defines</p>
 <dl class="define">
 <dt>
-<code class="sig-name descname">servername</code></dt>
-<dd><p>the hostname address for connecting with the EtherCat Main </p>
+<code class="sig-name descname">CYCLE_TIME</code></dt>
+<dd><p>the cycle time in microseconds defines the frequency of the loop </p>
 </dd></dl>
 
 <dl class="define">
 <dt>
-<code class="sig-name descname">SIGNAL_MAX_AMPLITUDE</code></dt>
-<dd><p>the maximal signal amplitude of the EEG slave </p>
-</dd></dl>
-
-<dl class="define">
-<dt>
-<code class="sig-name descname">SIGNAL_RESOLUTION</code></dt>
-<dd><p>the signal resolution of the EEG slave </p>
-</dd></dl>
-
-<dl class="define">
-<dt>
-<code class="sig-name descname">SAMPLING_RATE</code></dt>
-<dd><p>the sampling rate of the EEG slave </p>
-</dd></dl>
-
-</div>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Functions</p>
-<dl class="function">
-<dt>
-int32_t <code class="sig-name descname">read32BitFromBuffer</code><span class="sig-paren">(</span>const unsigned char *<em> buffer</em><span class="sig-paren">)</span></dt>
-<dd><p>read a 32bit float from the EEG slave buffer <dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>data the variable to fill with data from the buffer </p>
-</dd>
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">buffer</span></code>: the buffer to read from </p></li>
-</ul>
-</dd>
-</dl>
-</p>
-</dd></dl>
-
-<dl class="function">
-<dt>
-void <code class="sig-name descname">write32BitToBuffer</code><span class="sig-paren">(</span>unsigned char *<em> buffer</em>, const unsigned int<em> data</em><span class="sig-paren">)</span></dt>
-<dd><p>writed a 32bit float from the EEG slave buffer <dl class="simple">
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">buffer</span></code>: the buffer to write into </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">data</span></code>: the data to write into the buffer </p></li>
-</ul>
-</dd>
-</dl>
-</p>
-</dd></dl>
-
-<dl class="function">
-<dt>
-void <code class="sig-name descname">read_eegchannels_from_buffer</code><span class="sig-paren">(</span>int32_t *<em> eeg_sample</em>, const unsigned char *<em> ecat_buffer</em><span class="sig-paren">)</span></dt>
-<dd><p>read all eeg channels from the EtherCat Buffer <dl class="simple">
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">ecat_buffer</span></code>: the EtherCat Buffer used for reading </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">eeg_sample</span></code>: will be written to: the array storing the values of the current EEG samples </p></li>
-</ul>
-</dd>
-</dl>
-</p>
-</dd></dl>
-
-<dl class="function">
-<dt>
-void <code class="sig-name descname">get_trigger_states</code><span class="sig-paren">(</span>int32_t *<em> trigger_states</em>, unsigned char *<em> ecatMISO</em><span class="sig-paren">)</span></dt>
-<dd><p>get the current state of all triggers <dl class="simple">
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">trigger_states</span></code>: the array to fill with the current states </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">ecat_MISO</span></code>: the EtherCat Buffer used for reading* </p></li>
-</ul>
-</dd>
-</dl>
-</p>
-</dd></dl>
-
-</div>
-<div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Variables</p>
-<dl class="variable">
-<dt>
-<code class="sig-name descname">const int channeladdress[EEG_CHANNEL_COUNT]</code></dt>
-<dd><p>the memory address for the eeg channels in the EtherCat Buffer</p>
-<p>EEG_CHANNEL_COUNT and actual addresses are defined in ecat_config.h </p>
+<code class="sig-name descname">ADAPTER_NAME</code></dt>
+<dd><p>for which adapter to print the IP address </p>
 </dd></dl>
 
 </div>
@@ -275,10 +197,10 @@ void <code class="sig-name descname">get_trigger_states</code><span class="sig-p
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="goertzel.html" class="btn btn-neutral float-right" title="Goertzel" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="ecat.html" class="btn btn-neutral float-right" title="eCat" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="app.html" class="btn btn-neutral float-left" title="Main App" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../application.html" class="btn btn-neutral float-left" title="Device" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
