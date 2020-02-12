@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Architecture &mdash; LuckyLoop 0.1.0 documentation</title>
+  <title>Device &mdash; LuckyLoop 0.1.0 documentation</title>
   
 
   
@@ -36,7 +36,7 @@
   <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="EEG Streaming" href="elements/ecat.html" />
+    <link rel="next" title="eCat" href="elements/ecat.html" />
     <link rel="prev" title="LuckyClient" href="client.html" /> 
 </head>
 
@@ -87,15 +87,21 @@
 </ul>
 <p class="caption"><span class="caption-text">LuckyLoop:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Architecture</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Device</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#architecture">Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="#elements">Elements</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="elements/ecat.html">EEG Streaming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="elements/ecat.html">eCat</a></li>
 <li class="toctree-l2"><a class="reference internal" href="elements/goertzel.html">Goertzel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="elements/ringbuf.html">Ringbuffer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="elements/server.html">LuckyServer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="elements/sri.html">libsri.so</a></li>
 </ul>
 </li>
+</ul>
+<p class="caption"><span class="caption-text">Building:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="build.html">Local Compilation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="build.html#cross-compilation">Cross Compilation</a></li>
 </ul>
 
             
@@ -141,7 +147,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Architecture</li>
+      <li>Device</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -160,31 +166,33 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="architecture">
+  <div class="section" id="device">
+<h1>Device<a class="headerlink" href="#device" title="Permalink to this headline">¶</a></h1>
+<img alt="Generation 2+" src="_images/gen-02-plus.jpg" />
+</div>
+<div class="section" id="architecture">
 <h1>Architecture<a class="headerlink" href="#architecture" title="Permalink to this headline">¶</a></h1>
 <p>Elements in gray are not yet sufficiently tested.</p>
-<div class="graphviz"><img src="_images/graphviz-50425f6b8740d832cf1bf749d773258367bcd463.png" alt="digraph G{
+<div class="graphviz"><img src="_images/graphviz-8fbf450be274c88e43e0b6c129b4c78325297e54.png" alt="digraph G{
         
     compound=true;
     rankdir = LR;
     
-    lsl[style=filled]
+    ecat[]
     main[style=filled]
-    smoketests[style=filled]
     ecat_config[style=filled]
+    publish
     goertzel
-    testdata[style=filled]    
 
     subgraph cluster0 {
-      label = &quot;LuckyLoop Real-Time-Application:\n phase-dependent trigger&quot;
-      main -&gt; ringbuffer;
-      main -&gt; lsl;
+      label = &quot;LuckyLoop:\nreal-time application&quot;
+      main -&gt; publish;
+      publish -&gt; lsl_c;
       main -&gt; goertzel;
-      goertzel -&gt; ringbuffer;
-      main -&gt; smoketests;
-      smoketests -&gt; goertzel;
-      smoketests -&gt; testdata;
       main -&gt; ecat_config;
+      main -&gt; ringbuffer;
+      main -&gt; ecat;
+      ecat -&gt; ecat_config;
       }
 
     subgraph cluster1{
@@ -193,22 +201,22 @@
     }
     
     subgraph cluster2{
-     label= &quot;LuckyServer: \nrt-Interface&quot;
+     label= &quot;LuckyServer:\ncontrols LuckyLoop&quot;
      server
     }
     
     subgraph cluster3{
      label= &quot;Python Clients&quot;
-     LuckyClient
-     LSLInlet[label=&quot;LSL-Inlet&quot;]
+     LuckyClient[shape=&quot;rect&quot;]
+     LSLInlet[label=&quot;LSL-Inlet&quot;, shape=&quot;rect&quot;]
     }
     
 
-    lsl -&gt; LSLInlet
-    server -&gt; sri[dir=&quot;both&quot;, lhead=cluster1];
-    LuckyClient -&gt; server[lhead=cluster2];
-    main -&gt; sri[dir=&quot;both&quot;, lhead=cluster1];
-    smoketests -&gt; sri[lhead=cluster1];
+    publish -&gt; LSLInlet[ltail=cluster0] [label=&quot;streams&quot;, color=&quot;blue&quot;];
+    LuckyClient -&gt; server[lhead=cluster2] [label=&quot;connects&quot;, color=&quot;blue&quot;];
+    
+    server -&gt; sri[dir=&quot;both&quot;, lhead=cluster1] [label=&quot;share&quot;, color=&quot;blue&quot;];
+    main -&gt; sri[dir=&quot;both&quot;, lhead=cluster1] [label=&quot;share&quot;, color=&quot;blue&quot;];    
     
    }" class="graphviz" /></div>
 </div>
@@ -216,7 +224,7 @@
 <h1>Elements<a class="headerlink" href="#elements" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="elements/ecat.html">EEG Streaming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="elements/ecat.html">eCat</a></li>
 <li class="toctree-l1"><a class="reference internal" href="elements/goertzel.html">Goertzel</a></li>
 <li class="toctree-l1"><a class="reference internal" href="elements/ringbuf.html">Ringbuffer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="elements/server.html">LuckyServer</a></li>
@@ -233,7 +241,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="elements/ecat.html" class="btn btn-neutral float-right" title="EEG Streaming" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="elements/ecat.html" class="btn btn-neutral float-right" title="eCat" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="client.html" class="btn btn-neutral float-left" title="LuckyClient" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

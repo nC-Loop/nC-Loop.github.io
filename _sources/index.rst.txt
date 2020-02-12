@@ -8,7 +8,6 @@ Welcome to LuckyLoop's documentation!
 
 LuckyLoop is a real-time application running on neuroConns realtime-platform.
 
-
 .. toctree::
    :maxdepth: 2
    :caption: LuckyClient:
@@ -23,6 +22,11 @@ LuckyLoop is a real-time application running on neuroConns realtime-platform.
    application
 
 
+.. toctree::
+   :maxdepth: 2
+   :caption: Building:
+
+   build
 
 Indices and tables
 ==================

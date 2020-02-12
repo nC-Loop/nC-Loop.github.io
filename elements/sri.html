@@ -36,6 +36,7 @@
   <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Local Compilation" href="../build.html" />
     <link rel="prev" title="LuckyServer" href="server.html" /> 
 </head>
 
@@ -86,15 +87,21 @@
 </ul>
 <p class="caption"><span class="caption-text">LuckyLoop:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../application.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../application.html">Device</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../application.html#architecture">Architecture</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../application.html#elements">Elements</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="ecat.html">EEG Streaming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ecat.html">eCat</a></li>
 <li class="toctree-l2"><a class="reference internal" href="goertzel.html">Goertzel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ringbuf.html">Ringbuffer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="server.html">LuckyServer</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">libsri.so</a></li>
 </ul>
 </li>
+</ul>
+<p class="caption"><span class="caption-text">Building:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../build.html">Local Compilation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../build.html#cross-compilation">Cross Compilation</a></li>
 </ul>
 
             
@@ -140,7 +147,7 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="../application.html">Architecture</a> &raquo;</li>
+          <li><a href="../application.html">Device</a> &raquo;</li>
         
       <li>libsri.so</li>
     
@@ -180,8 +187,8 @@
 <p class="breathe-sectiondef-title rubric">Functions</p>
 <dl class="function">
 <dt>
-condition* <code class="sig-name descname">create_condition</code><span class="sig-paren">(</span>int<em> key</em><span class="sig-paren">)</span></dt>
-<dd><p>create a struct storing conditions in shared memory <dl class="simple">
+void <code class="sig-name descname">initialize_shared_condition</code><span class="sig-paren">(</span>int<em> key</em><span class="sig-paren">)</span></dt>
+<dd><p>initialize a struct in shared memory <dl class="simple">
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">key</span></code>: the key to identify the shared memory </p></li>
 </ul>
@@ -192,19 +199,59 @@ condition* <code class="sig-name descname">create_condition</code><span class="s
 
 <dl class="function">
 <dt>
-cond_pair* <code class="sig-name descname">create_cond_pair</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
-<dd><p>create a pair of conditions storing primary and secondary conditions </p>
+shared_condition* <code class="sig-name descname">access_shared_condition</code><span class="sig-paren">(</span>int<em> key</em><span class="sig-paren">)</span></dt>
+<dd><p>gain access to a struct storing conditions in shared memory <dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">key</span></code>: the key to identify the shared memory </p></li>
+</ul>
+</dd>
+</dl>
+</p>
 </dd></dl>
 
 <dl class="function">
 <dt>
-int <code class="sig-name descname">compare_conditions</code><span class="sig-paren">(</span>condition<em> a</em>, condition<em> b</em><span class="sig-paren">)</span></dt>
-<dd><p>compare two conditions for equality <dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>0 in case of inequality, 1 otherwise </p>
+int <code class="sig-name descname">read_shared_condition</code><span class="sig-paren">(</span>shared_condition  *<em> shared</em>, condition  *<em> fallback</em><span class="sig-paren">)</span></dt>
+<dd><p>read conditions from shared memory <dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>1 if anything was overwritten in fallback </p>
 </dd>
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">a</span></code>: the first conditions </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">b</span></code>: the other conditions </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">shared</span></code>: the conditions living in the shared memory </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fallback</span></code>: the fallback conditions to use in case the shared one is locked and for writing into </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+void <code class="sig-name descname">write_shared_condition</code><span class="sig-paren">(</span>shared_condition  *<em> shared</em>, const  condition<em> local</em><span class="sig-paren">)</span></dt>
+<dd><p>write the conditions to shared memory <dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">shared</span></code>: the conditions living in the shared memory </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">local</span></code>: the local values to be shared </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+condition <code class="sig-name descname">create_local_condition</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd><p>create a struct storing conditions in local memory </p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+int <code class="sig-name descname">are_conditions_equal</code><span class="sig-paren">(</span>const  condition<em> a</em>, const  shared_condition<em> b</em><span class="sig-paren">)</span></dt>
+<dd><p>compare two conditions for equality <dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>0 in case of inequality, 1 if equal </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">a</span></code>: the first condition </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">b</span></code>: the other (shared) condition </p></li>
 </ul>
 </dd>
 </dl>
@@ -228,33 +275,19 @@ void <code class="sig-name descname">print_condition</code><span class="sig-pare
 </p>
 </dd></dl>
 
-<dl class="function">
-<dt>
-int <code class="sig-name descname">init_mutex</code><span class="sig-paren">(</span>condition  *<em> a</em>, condition  *<em> b</em><span class="sig-paren">)</span></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt>
-int <code class="sig-name descname">unlock_mutex</code><span class="sig-paren">(</span>condition  *<em> cond</em><span class="sig-paren">)</span></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt>
-int <code class="sig-name descname">lock_mutex</code><span class="sig-paren">(</span>condition  *<em> cond</em><span class="sig-paren">)</span></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt>
-int <code class="sig-name descname">trylock_mutex</code><span class="sig-paren">(</span>condition  *<em> cond</em><span class="sig-paren">)</span></dt>
-<dd></dd></dl>
-
 </div>
 <dl class="struct">
 <dt>
-<em class="property">struct </em><code class="sig-name descname">condition</code></dt>
-<dd><em>#include &lt;sri.h&gt;</em><p>A structure containing the current settings of the EtherCat Main </p>
+<em class="property">struct </em><code class="sig-name descname">shared_condition</code></dt>
+<dd><em>#include &lt;sri.h&gt;</em><p>A sharable structure containing the current settings of the EtherCat Main </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Public Members</p>
+<dl class="variable">
+<dt>
+int <code class="sig-name descname">threshold</code></dt>
+<dd><p>the target threshold in a.u. </p>
+</dd></dl>
+
 <dl class="variable">
 <dt>
 int <code class="sig-name descname">target_phase</code></dt>
@@ -269,19 +302,13 @@ int <code class="sig-name descname">target_frequency</code></dt>
 
 <dl class="variable">
 <dt>
-int <code class="sig-name descname">threshold</code></dt>
-<dd><p>the target threshold in a.u. </p>
-</dd></dl>
-
-<dl class="variable">
-<dt>
 int <code class="sig-name descname">trigger</code></dt>
 <dd><p>the current state of the trigger </p>
 </dd></dl>
 
 <dl class="variable">
 <dt>
-pthread_mutex_t <code class="sig-name descname">mutx</code></dt>
+int <code class="sig-name descname">lock</code></dt>
 <dd><p>the mutex is either locked or unlocked </p>
 </dd></dl>
 
@@ -290,21 +317,32 @@ pthread_mutex_t <code class="sig-name descname">mutx</code></dt>
 
 <dl class="struct">
 <dt>
-<em class="property">struct </em><code class="sig-name descname">cond_pair</code></dt>
-<dd><em>#include &lt;sri.h&gt;</em><p>A double-tier buffer to ensure that the EtherCat always runs with a stable set of conditions <p>Main will use the primary condition in every loop, unless the primary is locked by a mutex in which case it will fall back to the secondary condition. The primary condition is only locked when the LuckyServer is currently writing into or reading from it. The secondary condition is a copy of the primary condition which can only be changed by LuckyMain </p>
-</p>
+<em class="property">struct </em><code class="sig-name descname">condition</code></dt>
+<dd><em>#include &lt;sri.h&gt;</em><p>A structure containing the current settings of the EtherCat Main </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Public Members</p>
 <dl class="variable">
 <dt>
-condition <code class="sig-name descname">primary</code></dt>
-<dd><p>the primary condition shared between LuckyMain and LuckyServer </p>
+int <code class="sig-name descname">threshold</code></dt>
+<dd><p>the target threshold in a.u. </p>
 </dd></dl>
 
 <dl class="variable">
 <dt>
-condition <code class="sig-name descname">secondary</code></dt>
-<dd><p>the secondary condition is a stable copy of primary and private to LuckyMain </p>
+int <code class="sig-name descname">target_phase</code></dt>
+<dd><p>the target phase in degree </p>
+</dd></dl>
+
+<dl class="variable">
+<dt>
+int <code class="sig-name descname">target_frequency</code></dt>
+<dd><p>the target frequency in Hz </p>
+</dd></dl>
+
+<dl class="variable">
+<dt>
+int <code class="sig-name descname">trigger</code></dt>
+<dd><p>the current state of the trigger </p>
 </dd></dl>
 
 </div>
@@ -319,6 +357,8 @@ condition <code class="sig-name descname">secondary</code></dt>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../build.html" class="btn btn-neutral float-right" title="Local Compilation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="server.html" class="btn btn-neutral float-left" title="LuckyServer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

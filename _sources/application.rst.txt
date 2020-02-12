@@ -1,3 +1,10 @@
+Device
+------
+
+.. image:: _static/gen-02-plus.jpg
+   :alt: Generation 2+
+
+
 Architecture
 ------------
 

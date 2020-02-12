@@ -1,0 +1,13 @@
+Local Compilation
+*****************
+
+You can compile the LuckyLoop application locally by running :code:make
+from the LuckyLoop root folder.
+
+Cross Compilation
+*****************
+
+The application runs on a `Toradex Colibri iMX7 board <https://www.toradex.com/de/computer-on-modules/colibri-arm-family/nxp-freescale-imx7?gclid=CjwKCAiA4Y7yBRB8EiwADV1haV1e3yBTc93Qu7B6biJ9D3EML4jhz6fik-Q_m5JxnOyBqXRLHSTAYhoCHTUQAvD_BwE>`_.
+
+For cross-compilation, you need to setup the respective crosscompilation toolchain.
+Follow the steps as outlined by toradex `here <https://developer.toradex.com/getting-started/module-2-my-first-hello-world-in-c/configure-toolchain-colibri-imx7?som=colibri-imx7&board=colibri-evaluation-board&os=linux>`_.

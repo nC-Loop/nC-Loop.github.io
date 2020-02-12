@@ -36,7 +36,7 @@
   <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Architecture" href="architecture.html" />
+    <link rel="next" title="Device" href="application.html" />
     <link rel="prev" title="Welcome to LuckyLoop’s documentation!" href="index.html" /> 
 </head>
 
@@ -91,8 +91,14 @@
 </ul>
 <p class="caption"><span class="caption-text">LuckyLoop:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
-<li class="toctree-l1"><a class="reference internal" href="architecture.html#elements">Elements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="application.html">Device</a></li>
+<li class="toctree-l1"><a class="reference internal" href="application.html#architecture">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="application.html#elements">Elements</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Building:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="build.html">Local Compilation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="build.html#cross-compilation">Cross Compilation</a></li>
 </ul>
 
             
@@ -283,6 +289,13 @@
 </div>
 </dd></dl>
 
+<dl class="method">
+<dt id="luckyloop.client.LuckyClient.trigger_now">
+<code class="sig-name descname">trigger_now</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/luckyloop/client.html#LuckyClient.trigger_now"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#luckyloop.client.LuckyClient.trigger_now" title="Permalink to this definition">¶</a></dt>
+<dd><p>LuckyLoop will trigger immediately regardless of any conditions</p>
+<p>LuckyLoop will pull OUT1 to 5V for one cycle (i.e. 1ms). After LuckyLoop has triggered, trigger status field is set to 0.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -316,7 +329,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="architecture.html" class="btn btn-neutral float-right" title="Architecture" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="application.html" class="btn btn-neutral float-right" title="Device" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="index.html" class="btn btn-neutral float-left" title="Welcome to LuckyLoop’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
