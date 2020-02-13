@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>eCat &mdash; LuckyLoop 0.1.0 documentation</title>
+  <title>Hardware IO Buffer &mdash; LuckyLoop 0.1.0 documentation</title>
   
 
   
@@ -36,8 +36,8 @@
   <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Goertzel" href="goertzel.html" />
-    <link rel="prev" title="Main App" href="app.html" /> 
+    <link rel="next" title="Publish with LSL" href="publish.html" />
+    <link rel="prev" title="Goertzel" href="goertzel.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -91,8 +91,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../application.html#architecture">Architecture</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../application.html#elements">Elements</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="app.html">Main App</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">eCat</a></li>
 <li class="toctree-l2"><a class="reference internal" href="goertzel.html">Goertzel</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Hardware IO Buffer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="publish.html">Publish with LSL</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ringbuf.html">Ringbuffer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="server.html">LuckyServer</a></li>
@@ -151,13 +151,13 @@
         
           <li><a href="../application.html">Device</a> &raquo;</li>
         
-      <li>eCat</li>
+      <li>Hardware IO Buffer</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/elements/ecat.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/elements/iobuffer.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -170,8 +170,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="ecat">
-<h1>eCat<a class="headerlink" href="#ecat" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="hardware-io-buffer">
+<h1>Hardware IO Buffer<a class="headerlink" href="#hardware-io-buffer" title="Permalink to this headline">¶</a></h1>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Defines</p>
 <dl class="define">
@@ -203,12 +203,12 @@
 <p class="breathe-sectiondef-title rubric">Functions</p>
 <dl class="function">
 <dt>
-int32_t <code class="sig-name descname">read32BitFromBuffer</code><span class="sig-paren">(</span>const unsigned char *<em> ecatMISO</em><span class="sig-paren">)</span></dt>
-<dd><p>read a 32bit float from the EEG slave buffer <dl class="simple">
+int32_t <code class="sig-name descname">read32BitFromBuffer</code><span class="sig-paren">(</span>const unsigned char *<em> bufferIN</em><span class="sig-paren">)</span></dt>
+<dd><p>reads a 32bit float from the buffer received from the hardware <dl class="simple">
 <dt><strong>Return</strong></dt><dd><p>data the variable to fill with data from the buffer </p>
 </dd>
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">ecatMISO</span></code>: the buffer to read from </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bufferIN</span></code>: the buffer to read from </p></li>
 </ul>
 </dd>
 </dl>
@@ -217,10 +217,10 @@ int32_t <code class="sig-name descname">read32BitFromBuffer</code><span class="s
 
 <dl class="function">
 <dt>
-void <code class="sig-name descname">write32BitToBuffer</code><span class="sig-paren">(</span>unsigned char *<em> ecatMOSI</em>, const unsigned int<em> data</em><span class="sig-paren">)</span></dt>
-<dd><p>writed a 32bit float from the EEG slave buffer <dl class="simple">
+void <code class="sig-name descname">write32BitToBuffer</code><span class="sig-paren">(</span>unsigned char *<em> bufferOUT</em>, const unsigned int<em> data</em><span class="sig-paren">)</span></dt>
+<dd><p>submits a 32bit float to the buffer to be sent to the hardware <dl class="simple">
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">ecatMOSI</span></code>: the buffer to write into </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bufferOUT</span></code>: the buffer to write into </p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">data</span></code>: the data to write into the buffer </p></li>
 </ul>
 </dd>
@@ -230,10 +230,10 @@ void <code class="sig-name descname">write32BitToBuffer</code><span class="sig-p
 
 <dl class="function">
 <dt>
-void <code class="sig-name descname">read_eegchannels_from_buffer</code><span class="sig-paren">(</span>int32_t *<em> eeg_sample</em>, const unsigned char *<em> ecatMISO</em><span class="sig-paren">)</span></dt>
-<dd><p>read all eeg channels from the EtherCat Buffer <dl class="simple">
+void <code class="sig-name descname">read_eegchannels_from_buffer</code><span class="sig-paren">(</span>int32_t *<em> eeg_sample</em>, const unsigned char *<em> bufferIN</em><span class="sig-paren">)</span></dt>
+<dd><p>read all eeg channels from the buffer received from the hardware <dl class="simple">
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">ecatMISO</span></code>: the buffer used for reading </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bufferIN</span></code>: the buffer used for reading </p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">eeg_sample</span></code>: will be written to: the array storing the values of the current EEG samples </p></li>
 </ul>
 </dd>
@@ -243,11 +243,35 @@ void <code class="sig-name descname">read_eegchannels_from_buffer</code><span cl
 
 <dl class="function">
 <dt>
-void <code class="sig-name descname">get_trigger_states</code><span class="sig-paren">(</span>int32_t *<em> trigger_states</em>, const unsigned char *<em> ecatMISO</em><span class="sig-paren">)</span></dt>
-<dd><p>get the current state of all triggers <dl class="simple">
+void <code class="sig-name descname">get_trigger_states</code><span class="sig-paren">(</span>int32_t *<em> trigger_states</em>, const unsigned char *<em> bufferIN</em><span class="sig-paren">)</span></dt>
+<dd><p>read the current state of all triggers from the buffer received from the hardware <dl class="simple">
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">trigger_states</span></code>: the array to fill with the current states </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">ecat_MISO</span></code>: the buffer used for reading* </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bufferIN</span></code>: the buffer used for reading* </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+int <code class="sig-name descname">start_buffering</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd><p>start the IPC creates a client to an IPC process which will be used with <code class="docutils literal notranslate"><span class="pre">exchange_buffers</span></code> to exchange the inward and outward bound buffers <dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>client the IPC client managing the IObuffers </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt>
+int <code class="sig-name descname">exchange_buffers</code><span class="sig-paren">(</span>unsigned int<em> client</em>, unsigned char *<em> bufferIN</em>, unsigned char *<em> bufferOUT</em><span class="sig-paren">)</span></dt>
+<dd><p>exchange the buffers <dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">client</span></code>: the IPC client managing the IObuffers </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bufferIN</span></code>: the buffer received from the hardware, used for reading </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bufferOUT</span></code>: the buffer sent to the hardware used for writing </p></li>
 </ul>
 </dd>
 </dl>
@@ -275,10 +299,10 @@ void <code class="sig-name descname">get_trigger_states</code><span class="sig-p
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="goertzel.html" class="btn btn-neutral float-right" title="Goertzel" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="publish.html" class="btn btn-neutral float-right" title="Publish with LSL" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="app.html" class="btn btn-neutral float-left" title="Main App" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="goertzel.html" class="btn btn-neutral float-left" title="Goertzel" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

@@ -1,0 +1,8 @@
+Hardware IO Buffer
+******************
+
+
+.. doxygenfile:: iobuffer.h
+   :path: ../cdocs/xml
+   :no-link:
+

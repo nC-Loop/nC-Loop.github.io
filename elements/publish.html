@@ -37,7 +37,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Ringbuffer" href="ringbuf.html" />
-    <link rel="prev" title="Goertzel" href="goertzel.html" /> 
+    <link rel="prev" title="Hardware IO Buffer" href="iobuffer.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -91,8 +91,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../application.html#architecture">Architecture</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../application.html#elements">Elements</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="app.html">Main App</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ecat.html">eCat</a></li>
 <li class="toctree-l2"><a class="reference internal" href="goertzel.html">Goertzel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iobuffer.html">Hardware IO Buffer</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Publish with LSL</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ringbuf.html">Ringbuffer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="server.html">LuckyServer</a></li>
@@ -172,24 +172,27 @@
             
   <div class="section" id="publish-with-lsl">
 <h1>Publish with LSL<a class="headerlink" href="#publish-with-lsl" title="Permalink to this headline">¶</a></h1>
+<p>Together with the EEG data read from the hardware via the iobuffer interface, additional information can be published depending on the application use case.</p>
+<p>Generally, the first channel is the sample index, followed by EEG data, followed by an appendix, e.g. phase, power, triggerstate etc.</p>
+<p>On your local measurement PC, use on of the available LSL interfaces, e.g. <a class="reference external" href="https://pypi.org/project/pylsl/">pylsl</a>, to connect with this data stream. </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Defines</p>
 <dl class="define">
 <dt>
 <code class="sig-name descname">OUTLET_NAME</code></dt>
-<dd><p>The name of the outlet. defaults to LuckyLoop </p>
+<dd><p>The name of the outlet. Defaults to LuckyLoop </p>
 </dd></dl>
 
 <dl class="define">
 <dt>
 <code class="sig-name descname">OUTLET_CHANNEL_COUNT</code></dt>
-<dd><p>the maximal number of channels for publication with LSL </p>
+<dd><p>The number of channels published with LSL  </p>
 </dd></dl>
 
 <dl class="define">
 <dt>
 <code class="sig-name descname">MAX_APPENDIX_COUNT</code></dt>
-<dd><p>the maximal number of appendable items for publication with LSL </p>
+<dd><p>the maximal number of appendable items for publication with LSL, given the number of EEG channels defined by the connected iobuffered hardware. </p>
 </dd></dl>
 
 </div>
@@ -274,7 +277,7 @@ char* <code class="sig-name descname">get_adapter_address</code><span class="sig
         <a href="ringbuf.html" class="btn btn-neutral float-right" title="Ringbuffer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="goertzel.html" class="btn btn-neutral float-left" title="Goertzel" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="iobuffer.html" class="btn btn-neutral float-left" title="Hardware IO Buffer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

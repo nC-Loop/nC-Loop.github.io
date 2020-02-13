@@ -36,7 +36,7 @@
   <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="eCat" href="ecat.html" />
+    <link rel="next" title="Goertzel" href="goertzel.html" />
     <link rel="prev" title="Device" href="../application.html" /> 
 </head>
 
@@ -91,8 +91,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../application.html#architecture">Architecture</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../application.html#elements">Elements</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Main App</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ecat.html">eCat</a></li>
 <li class="toctree-l2"><a class="reference internal" href="goertzel.html">Goertzel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iobuffer.html">Hardware IO Buffer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="publish.html">Publish with LSL</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ringbuf.html">Ringbuffer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="server.html">LuckyServer</a></li>
@@ -172,6 +172,11 @@
             
   <div class="section" id="main-app">
 <h1>Main App<a class="headerlink" href="#main-app" title="Permalink to this headline">¶</a></h1>
+<p>This is the main application running on LuckyLoop. </p>
+<p>During boot, it creates an interface to the hardware (as defined in hw_config) with iobuffer. It creates an LSL oulet with publish, based on the EEG channels defined via iobuffer in hw_config.</p>
+<p>Subsequently, it initializes the hardware, e.g. the Analog-Digital Converter (ADC) or stimulators, depending on availability.</p>
+<p>It fills a ringbuffer, and once this buffer is full, it is reading state flags from the LuckyServer using the shared memory interface from libsri.so.</p>
+<p>Preparations: In order to use the Server - Real-Time Interface (SRI) the library has to be linked (done in the makefile) To enable the loading of the library during runtime it needs to be added to /usr/lib/ or the following command needs to be executed $ LD_LIBRARY_PATH=/full/path/to/library/directory:${LD_LIBRARY_PATH} $ export LD_LIBRARY_PATH any change in the SRI needs a recopying to /usr/lib! </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Defines</p>
 <dl class="define">
@@ -197,7 +202,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="ecat.html" class="btn btn-neutral float-right" title="eCat" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="goertzel.html" class="btn btn-neutral float-right" title="Goertzel" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="../application.html" class="btn btn-neutral float-left" title="Device" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

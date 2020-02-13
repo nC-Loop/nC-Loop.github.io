@@ -91,8 +91,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../application.html#architecture">Architecture</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../application.html#elements">Elements</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="app.html">Main App</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ecat.html">eCat</a></li>
 <li class="toctree-l2"><a class="reference internal" href="goertzel.html">Goertzel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iobuffer.html">Hardware IO Buffer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="publish.html">Publish with LSL</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ringbuf.html">Ringbuffer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="server.html">LuckyServer</a></li>
@@ -172,10 +172,10 @@
             
   <div class="section" id="libsri-so">
 <h1>libsri.so<a class="headerlink" href="#libsri-so" title="Permalink to this headline">¶</a></h1>
-<p>The SRI implements an interface between LuckyServer and LuckyMain</p>
-<p>The LuckyMain runs a continuous loop. At the start of every loop, it reads the current target conditions from the primary conditions stored in a cond_pair. These target conditions are e.g. the target phase, frequency and power threshold.</p>
-<p>This primary condition is shared with the LuckyServer, i.e. it can be written and read from by this external process. While the LuckyServer writes into this condition, LuckyMain uses the secondary. LuckyMain checks during each loop whether primary and secondary are equal, and if this is not the case, overwrites the secondary settings with a copy of the primary settings.</p>
-<p>The memory segment shared with LuckyServer is identified by the SHARED_CONDITION_KEY. Additionally, be default, all code in this software uses the standard_cond_pair. </p>
+<p>This library implements an interface between non-real-time LuckyServer and the real-time LuckyApplication. Its purpose it to set states for control and get states for passing information.</p>
+<p>The interface is implemented as a struct (i.e. condition) which lives only in the local space, and a lockable struct (i.e. as shared_condition) which is used for sharing between the processes.</p>
+<p>The memory segment used for is identified by the SHARED_CONDITION_KEY. The first step to use libsri.so is initializing the shared memory segment using <code class="docutils literal notranslate"><span class="pre">initialize_shared_condition</span></code>. This overwrittes anything already in place, and should therefore be only used by the LuckyApp. Afterwards, one can attach the shared segment with <code class="docutils literal notranslate"><span class="pre">access_shared_condition</span></code>, and read/write by pointing it to the local copy. It is best practice not to read/write the shared_condition directly.</p>
+<p>Read/Write keeps the local copy untouched if the shared segment is currently locked. LuckyApp runs a continuous loop. Therefore, if the shared condition is locked, it will just failback to its local copy and try again next cycle. As the LuckyServer only read/writes the shared condition when a client has send a message. It therefore needs to wait until the lock is free, e.g. by putting the function call into a while loop. </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Defines</p>
 <dl class="define">
@@ -184,13 +184,19 @@
 <dd><p>the key used to identify the shared memory writable for LuckyServer </p>
 </dd></dl>
 
+<dl class="define">
+<dt>
+<code class="sig-name descname">CONDITION_DEFAULT</code></dt>
+<dd><p>the default conditions when initializing a shared or local instance </p>
+</dd></dl>
+
 </div>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Functions</p>
 <dl class="function">
 <dt>
 void <code class="sig-name descname">initialize_shared_condition</code><span class="sig-paren">(</span>int<em> key</em><span class="sig-paren">)</span></dt>
-<dd><p>initialize a struct in shared memory <dl class="simple">
+<dd><p>initialize a struct in shared memory This function releases any locks and sets the condition to default values as defined in CONDITION_DEFAULT <dl class="simple">
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">key</span></code>: the key to identify the shared memory </p></li>
 </ul>
@@ -213,13 +219,13 @@ shared_condition* <code class="sig-name descname">access_shared_condition</code>
 
 <dl class="function">
 <dt>
-int <code class="sig-name descname">read_shared_condition</code><span class="sig-paren">(</span>shared_condition  *<em> shared</em>, condition  *<em> fallback</em><span class="sig-paren">)</span></dt>
-<dd><p>read conditions from shared memory <dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>1 if anything was overwritten in fallback </p>
+int <code class="sig-name descname">read_shared_condition</code><span class="sig-paren">(</span>shared_condition  *<em> shared</em>, condition  *<em> local</em><span class="sig-paren">)</span></dt>
+<dd><p>read conditions from shared memory If access to the shared memory is locked, the local conditions will be used as fallback and not be changed. Otherwise, the local copy will become a copy a copy of the shared conditions. Because the function is assumed to be run continually in a loop, we return a bool. This bool indicates whether there actually was any change in the content of the local copy. <dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>1 if the conditions in fallback were actually changed </p>
 </dd>
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">shared</span></code>: the conditions living in the shared memory </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">fallback</span></code>: the fallback conditions to use in case the shared one is locked and for writing into </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">local</span></code>: the fallback conditions living in your local memory. </p></li>
 </ul>
 </dd>
 </dl>
@@ -228,8 +234,10 @@ int <code class="sig-name descname">read_shared_condition</code><span class="sig
 
 <dl class="function">
 <dt>
-void <code class="sig-name descname">write_shared_condition</code><span class="sig-paren">(</span>shared_condition  *<em> shared</em>, const  condition<em> local</em><span class="sig-paren">)</span></dt>
+int <code class="sig-name descname">write_shared_condition</code><span class="sig-paren">(</span>shared_condition  *<em> shared</em>, const  condition<em> local</em><span class="sig-paren">)</span></dt>
 <dd><p>write the conditions to shared memory <dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>1 if i could acquire the lock and overwrite, 0 otherwise. The function is assumed to be run continually in a loop. If not, consider to put it into a while loop which breaks once written. </p>
+</dd>
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">shared</span></code>: the conditions living in the shared memory </p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">local</span></code>: the local values to be shared </p></li>
@@ -311,7 +319,7 @@ int <code class="sig-name descname">trigger</code></dt>
 <dl class="variable">
 <dt>
 int <code class="sig-name descname">lock</code></dt>
-<dd><p>the mutex is either locked or unlocked </p>
+<dd><p>this mutex is either locked or unlocked </p>
 </dd></dl>
 
 </div>

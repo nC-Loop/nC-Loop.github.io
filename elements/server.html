@@ -91,8 +91,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../application.html#architecture">Architecture</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../application.html#elements">Elements</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="app.html">Main App</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ecat.html">eCat</a></li>
 <li class="toctree-l2"><a class="reference internal" href="goertzel.html">Goertzel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iobuffer.html">Hardware IO Buffer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="publish.html">Publish with LSL</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ringbuf.html">Ringbuffer</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">LuckyServer</a></li>
@@ -172,6 +172,15 @@
             
   <div class="section" id="luckyserver">
 <h1>LuckyServer<a class="headerlink" href="#luckyserver" title="Permalink to this headline">¶</a></h1>
+<p>The server is listening on LuckyLoop at port 1219. During boot-up of the app, it will print the host IP address to the TFT. Read it from there. Start the Python Client on your measurement PC, i.e. <code class="docutils literal notranslate"><span class="pre">luckyloop.client.Client(host,</span> <span class="pre">port)</span></code> using these values to connect it with the LuckyServer.</p>
+<p>The server accepts specific ascii-encoded commands following the format <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">command</span><span class="p">:</span> <span class="n">arg1</span><span class="p">,</span> <span class="n">arg2</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+</pre></div>
+</div>
+</p>
+<p>Example command <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">set_condition</span><span class="p">:</span> <span class="n">threshold</span><span class="p">,</span> <span class="n">target_phase</span><span class="p">,</span> <span class="n">target_frequency</span><span class="p">,</span> <span class="n">trigger</span><span class="p">]</span>
+</pre></div>
+</div>
+ </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Defines</p>
 <dl class="define">
@@ -270,7 +279,7 @@ int <code class="sig-name descname">recv_message</code><span class="sig-paren">(
 <dt><strong>Return</strong></dt><dd><p>EXIT_SUCCESS or error code </p>
 </dd>
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">client</span></code>: is the socket from whom the server will read. This is the client returned by :func:<code class="docutils literal notranslate"><span class="pre">~.accept_client()</span></code> </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">client</span></code>: is the socket from whom the server will read. This is the client returned by :func:<code class="docutils literal notranslate"><span class="pre">~.</span><span class="pre">accept_client()</span></code> </p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">condition</span></code>: *new_status the status object which will be filled based on the message received from the client </p></li>
 </ul>
 </dd>

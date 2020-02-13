@@ -36,8 +36,8 @@
   <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Publish with LSL" href="publish.html" />
-    <link rel="prev" title="eCat" href="ecat.html" /> 
+    <link rel="next" title="Hardware IO Buffer" href="iobuffer.html" />
+    <link rel="prev" title="Main App" href="app.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -91,8 +91,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../application.html#architecture">Architecture</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../application.html#elements">Elements</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="app.html">Main App</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ecat.html">eCat</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Goertzel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iobuffer.html">Hardware IO Buffer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="publish.html">Publish with LSL</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ringbuf.html">Ringbuffer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="server.html">LuckyServer</a></li>
@@ -172,6 +172,9 @@
             
   <div class="section" id="goertzel">
 <h1>Goertzel<a class="headerlink" href="#goertzel" title="Permalink to this headline">¶</a></h1>
+<p>This library implements the goertzel algorithm to calculate phase and power in an efficient way for a single frequency of interest</p>
+<p><code class="docutils literal notranslate"><span class="pre">goertzel_coefficients</span></code> takes an 1-dimensional array of data and returns a complex number for the given target frequency. Use <code class="docutils literal notranslate"><span class="pre">calc_power</span></code> and <code class="docutils literal notranslate"><span class="pre">calc_phase</span></code> to transform this complex number into angle in radians or amplitude. You can get the data from the ringbuffer struct by direct access.</p>
+<p>Because the target phase virtually never can be met exactly, use <code class="docutils literal notranslate"><span class="pre">phase_to_trigger</span></code>, giving it the current phase and the phase from the last time you calculated it. </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Defines</p>
 <dl class="define">
@@ -235,14 +238,18 @@ double <code class="sig-name descname">calc_phase</code><span class="sig-paren">
 <dl class="function">
 <dt>
 int <code class="sig-name descname">phase_to_trigger</code><span class="sig-paren">(</span>double<em> current_phase</em>, double<em> last_phase</em>, double<em> target_phase</em><span class="sig-paren">)</span></dt>
-<dd><p>decides if the target phase will be reached in the next step &#64;params: double current_phase: Current phase double last_phase: Last phase double: target_phase: Target phase <ul class="simple">
-<li><p>1 for true (target phase will be reached in next step) </p></li>
-</ul>
-<dl class="simple">
+<dd><p>decides if the target phase is met This function will decide whether the phase is met by a) calculation whether the target_phase has passed since the last calculation (i.e. lies between last_phase and current_phase) b) predict whether you will pass it with the next calculation, which is sensible only if you have a stable time between iterative calculations, as e.g. running this function in the main loop of LuckyApp. <dl class="simple">
 <dt><strong>Return</strong></dt><dd><p>:<ul class="simple">
 <li><p>0 for false (will not reach target phase)</p></li>
+<li><p>1 for true (target phase will be reached in next step) </p></li>
 </ul>
 </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">current_phase</span></code>: the current phase in radians </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">last_phase</span></code>: the phase from the last calculation in radians </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">target_phase</span></code>: the target phase in radians </p></li>
+</ul>
 </dd>
 </dl>
 </p>
@@ -259,10 +266,10 @@ int <code class="sig-name descname">phase_to_trigger</code><span class="sig-pare
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="publish.html" class="btn btn-neutral float-right" title="Publish with LSL" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="iobuffer.html" class="btn btn-neutral float-right" title="Hardware IO Buffer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="ecat.html" class="btn btn-neutral float-left" title="eCat" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="app.html" class="btn btn-neutral float-left" title="Main App" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

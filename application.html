@@ -91,8 +91,8 @@
 <li class="toctree-l1"><a class="reference internal" href="#architecture">Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="#elements">Elements</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="elements/app.html">Main App</a></li>
-<li class="toctree-l2"><a class="reference internal" href="elements/ecat.html">eCat</a></li>
 <li class="toctree-l2"><a class="reference internal" href="elements/goertzel.html">Goertzel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="elements/iobuffer.html">Hardware IO Buffer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="elements/publish.html">Publish with LSL</a></li>
 <li class="toctree-l2"><a class="reference internal" href="elements/ringbuf.html">Ringbuffer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="elements/server.html">LuckyServer</a></li>
@@ -175,26 +175,27 @@
 <div class="section" id="architecture">
 <h1>Architecture<a class="headerlink" href="#architecture" title="Permalink to this headline">¶</a></h1>
 <p>Elements in gray are not yet sufficiently tested.</p>
-<div class="graphviz"><img src="_images/graphviz-8fbf450be274c88e43e0b6c129b4c78325297e54.png" alt="digraph G{
+<div class="graphviz"><img src="_images/graphviz-6af51b6563f5715e0ec28b6faf88a98987dab8ac.png" alt="digraph G{
         
     compound=true;
     rankdir = LR;
     
-    ecat[]
+    iobuffer[]
     main[style=filled]
-    ecat_config[style=filled]
+    hw_config[style=filled]
     publish
     goertzel
 
     subgraph cluster0 {
       label = &quot;LuckyLoop:\nreal-time application&quot;
-      main -&gt; publish;
-      publish -&gt; lsl_c;
       main -&gt; goertzel;
       main -&gt; ecat_config;
       main -&gt; ringbuffer;
-      main -&gt; ecat;
-      ecat -&gt; ecat_config;
+      main -&gt; iobuffer;
+      iobuffer -&gt; hw_config;
+      main -&gt; publish;
+      publish -&gt; lsl_c;
+      publish -&gt; iobuffer;
       }
 
     subgraph cluster1{
@@ -214,11 +215,11 @@
     }
     
 
-    publish -&gt; LSLInlet[ltail=cluster0] [label=&quot;streams&quot;, color=&quot;blue&quot;];
-    LuckyClient -&gt; server[lhead=cluster2] [label=&quot;connects&quot;, color=&quot;blue&quot;];
+    publish -&gt; LSLInlet[] [label=&quot;LSLOutlet&quot;, color=&quot;blue&quot;];
+    LuckyClient -&gt; server[lhead=cluster2] [label=&quot;TCP/IP&quot;, color=&quot;blue&quot;];
     
-    server -&gt; sri[dir=&quot;both&quot;, lhead=cluster1] [label=&quot;share&quot;, color=&quot;blue&quot;];
-    main -&gt; sri[dir=&quot;both&quot;, lhead=cluster1] [label=&quot;share&quot;, color=&quot;blue&quot;];    
+    server -&gt; sri[dir=&quot;both&quot;, lhead=cluster1] [label=&quot;shared memory&quot;, color=&quot;blue&quot;];
+    main -&gt; sri[dir=&quot;both&quot;, lhead=cluster1] [label=&quot;shared memory&quot;, color=&quot;blue&quot;];    
     
    }" class="graphviz" /></div>
 </div>
@@ -227,8 +228,8 @@
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="elements/app.html">Main App</a></li>
-<li class="toctree-l1"><a class="reference internal" href="elements/ecat.html">eCat</a></li>
 <li class="toctree-l1"><a class="reference internal" href="elements/goertzel.html">Goertzel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="elements/iobuffer.html">Hardware IO Buffer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="elements/publish.html">Publish with LSL</a></li>
 <li class="toctree-l1"><a class="reference internal" href="elements/ringbuf.html">Ringbuffer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="elements/server.html">LuckyServer</a></li>
