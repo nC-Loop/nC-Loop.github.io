@@ -175,7 +175,7 @@
 <div class="section" id="architecture">
 <h1>Architecture<a class="headerlink" href="#architecture" title="Permalink to this headline">¶</a></h1>
 <p>Elements in gray are not yet sufficiently tested.</p>
-<div class="graphviz"><img src="_images/graphviz-6af51b6563f5715e0ec28b6faf88a98987dab8ac.png" alt="digraph G{
+<div class="graphviz"><img src="_images/graphviz-b68e1b71ba71a667efc208e03ca529a61965b4db.png" alt="digraph G{
         
     compound=true;
     rankdir = LR;
@@ -189,7 +189,6 @@
     subgraph cluster0 {
       label = &quot;LuckyLoop:\nreal-time application&quot;
       main -&gt; goertzel;
-      main -&gt; ecat_config;
       main -&gt; ringbuffer;
       main -&gt; iobuffer;
       iobuffer -&gt; hw_config;
