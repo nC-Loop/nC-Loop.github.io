@@ -176,12 +176,6 @@
 <p class="breathe-sectiondef-title rubric">Defines</p>
 <dl class="define">
 <dt>
-<code class="sig-name descname">servername</code></dt>
-<dd><p>the hostname address for connecting with the hardware interface </p>
-</dd></dl>
-
-<dl class="define">
-<dt>
 <code class="sig-name descname">SIGNAL_MAX_AMPLITUDE</code></dt>
 <dd><p>the maximal signal amplitude of the EEG slave </p>
 </dd></dl>
@@ -266,7 +260,7 @@ int <code class="sig-name descname">start_buffering</code><span class="sig-paren
 
 <dl class="function">
 <dt>
-int <code class="sig-name descname">exchange_buffers</code><span class="sig-paren">(</span>unsigned int<em> client</em>, unsigned char *<em> bufferIN</em>, unsigned char *<em> bufferOUT</em><span class="sig-paren">)</span></dt>
+int <code class="sig-name descname">exchange_buffers</code><span class="sig-paren">(</span>int<em> client</em>, unsigned char *<em> bufferIN</em>, unsigned char *<em> bufferOUT</em><span class="sig-paren">)</span></dt>
 <dd><p>exchange the buffers <dl class="simple">
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">client</span></code>: the IPC client managing the IObuffers </p></li>
