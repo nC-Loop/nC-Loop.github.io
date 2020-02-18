@@ -197,7 +197,7 @@
 <p class="breathe-sectiondef-title rubric">Functions</p>
 <dl class="function">
 <dt>
-int32_t <code class="sig-name descname">read32BitFromBuffer</code><span class="sig-paren">(</span>const unsigned char *<em> bufferIN</em><span class="sig-paren">)</span></dt>
+int32_t <code class="sig-name descname">read32BitFromBuffer</code><span class="sig-paren">(</span>unsigned char *<em> bufferIN</em><span class="sig-paren">)</span></dt>
 <dd><p>reads a 32bit float from the buffer received from the hardware <dl class="simple">
 <dt><strong>Return</strong></dt><dd><p>data the variable to fill with data from the buffer </p>
 </dd>
@@ -211,7 +211,7 @@ int32_t <code class="sig-name descname">read32BitFromBuffer</code><span class="s
 
 <dl class="function">
 <dt>
-void <code class="sig-name descname">write32BitToBuffer</code><span class="sig-paren">(</span>unsigned char *<em> bufferOUT</em>, const unsigned int<em> data</em><span class="sig-paren">)</span></dt>
+void <code class="sig-name descname">write32BitToBuffer</code><span class="sig-paren">(</span>unsigned char *<em> bufferOUT</em>, unsigned int<em> data</em><span class="sig-paren">)</span></dt>
 <dd><p>submits a 32bit float to the buffer to be sent to the hardware <dl class="simple">
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">bufferOUT</span></code>: the buffer to write into </p></li>
@@ -224,7 +224,7 @@ void <code class="sig-name descname">write32BitToBuffer</code><span class="sig-p
 
 <dl class="function">
 <dt>
-void <code class="sig-name descname">read_eegchannels_from_buffer</code><span class="sig-paren">(</span>int32_t *<em> eeg_sample</em>, const unsigned char *<em> bufferIN</em><span class="sig-paren">)</span></dt>
+void <code class="sig-name descname">read_eegchannels_from_buffer</code><span class="sig-paren">(</span>int32_t *<em> eeg_sample</em>, unsigned char *<em> bufferIN</em><span class="sig-paren">)</span></dt>
 <dd><p>read all eeg channels from the buffer received from the hardware <dl class="simple">
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">bufferIN</span></code>: the buffer used for reading </p></li>
@@ -237,7 +237,7 @@ void <code class="sig-name descname">read_eegchannels_from_buffer</code><span cl
 
 <dl class="function">
 <dt>
-void <code class="sig-name descname">get_trigger_states</code><span class="sig-paren">(</span>int32_t *<em> trigger_states</em>, const unsigned char *<em> bufferIN</em><span class="sig-paren">)</span></dt>
+void <code class="sig-name descname">get_trigger_states</code><span class="sig-paren">(</span>int32_t *<em> trigger_states</em>, unsigned char *<em> bufferIN</em><span class="sig-paren">)</span></dt>
 <dd><p>read the current state of all triggers from the buffer received from the hardware <dl class="simple">
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">trigger_states</span></code>: the array to fill with the current states </p></li>
