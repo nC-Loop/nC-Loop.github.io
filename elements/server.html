@@ -265,7 +265,7 @@ int <code class="sig-name descname">set_condition_from_arguments</code><span cla
 
 <dl class="function">
 <dt>
-int <code class="sig-name descname">recv_message</code><span class="sig-paren">(</span>int<em> client</em>, condition  *<em> new_status</em><span class="sig-paren">)</span></dt>
+condition <code class="sig-name descname">recv_message</code><span class="sig-paren">(</span>int<em> client</em>, condition  *<em> new_status</em><span class="sig-paren">)</span></dt>
 <dd><p>This function reads a message from the client and executes the given command.</p>
 <p>The message format is a string formatted with positional arguments <p>Format: [&lt;command&gt;: &lt;arg1&gt;, &lt;arg2&gt;, …, &lt;argN&gt;] </p>
 <p> Implemented are:</p>

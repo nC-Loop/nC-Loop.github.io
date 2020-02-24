@@ -179,7 +179,7 @@
 <dl class="define">
 <dt>
 <code class="sig-name descname">BUFFERSIZE</code></dt>
-<dd><p>a sensible default for the buffersize (512) </p>
+<dd><p>a sensible default for the buffersize </p>
 </dd></dl>
 
 </div>
@@ -189,8 +189,6 @@
 <dt>
 ringbuf* <code class="sig-name descname">ringbuf_new</code><span class="sig-paren">(</span>int<em> buffersize</em><span class="sig-paren">)</span></dt>
 <dd><p>creates a new buffer, returns a pointer to it <dl class="simple">
-<dt><strong>See</strong></dt><dd><p>ringbuf_destroy(). </p>
-</dd>
 <dt><strong>Return</strong></dt><dd><p>a new ringbuf </p>
 </dd>
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
@@ -205,8 +203,6 @@ ringbuf* <code class="sig-name descname">ringbuf_new</code><span class="sig-pare
 <dt>
 void <code class="sig-name descname">ringbuf_destroy</code><span class="sig-paren">(</span>ringbuf  *<em> ringbuffer</em><span class="sig-paren">)</span></dt>
 <dd><p>destroy a ringbuf and free the allocated memory <dl class="simple">
-<dt><strong>See</strong></dt><dd><p>ringbuf_new(). </p>
-</dd>
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">ringbuffer</span></code>: the ringbuf to be destroyed </p></li>
 </ul>
@@ -259,17 +255,7 @@ void <code class="sig-name descname">print_rbuf</code><span class="sig-paren">(<
 <dl class="function">
 <dt>
 double <code class="sig-name descname">read_ringbuf_pos</code><span class="sig-paren">(</span>ringbuf  *<em> ringbuffer</em>, int<em> position</em><span class="sig-paren">)</span></dt>
-<dd><p>return a sample relative to the current head backwards in time</p>
-<p>This means that index 0 is the youngest sample, and at index ringbuf-&gt;buffersize is the oldest.</p>
-<p>Read everything and arrange in temporal regular order like that: <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">buffer</span><span class="p">[</span><span class="n">ringbuf</span><span class="o">-&gt;</span><span class="n">buffersize</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
-<span class="k">for</span> <span class="p">(</span><span class="nb">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">ringbuf</span><span class="o">-&gt;</span><span class="n">buffersize</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-<span class="p">{</span>
- <span class="n">buffer</span><span class="p">[</span><span class="n">ringbuf</span><span class="o">-&gt;</span><span class="n">buffersize</span> <span class="o">-</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>  <span class="o">=</span> <span class="n">read_ringbuf_pos</span><span class="p">(</span><span class="n">ringbuf</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</p>
-<p><dl class="simple">
+<dd><p>return a sample relative to the current head <dl class="simple">
 <dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">ringbuffer</span></code>: the ringbuffer to read from </p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">position</span></code>: int the newest value is at 0, the oldest at buffersize-1 </p></li>
@@ -283,7 +269,7 @@ double <code class="sig-name descname">read_ringbuf_pos</code><span class="sig-p
 <dl class="struct">
 <dt>
 <em class="property">struct </em><code class="sig-name descname">ringbuf</code></dt>
-<dd><em>#include &lt;ringbuf.h&gt;</em><p>A structure to represent a ringbuffer Do not access the buffer directly, instead use read_ringbuf_pos() </p>
+<dd><em>#include &lt;ringbuf.h&gt;</em><p>A structure to represent a ringbuffer </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Public Members</p>
 <dl class="variable">
