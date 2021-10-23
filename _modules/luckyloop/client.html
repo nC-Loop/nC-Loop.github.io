@@ -219,7 +219,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_host</span> <span class="o">=</span> <span class="n">host</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_port</span> <span class="o">=</span> <span class="n">port</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_socket</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">enquire</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_enquire</span><span class="p">()</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">phase</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
@@ -233,7 +233,7 @@
 <span class="sd">            an integer between -180 and +180</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">enquire</span><span class="p">()</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_enquire</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">status</span><span class="p">[</span><span class="s2">&quot;target_phase&quot;</span><span class="p">]</span>
 
     <span class="nd">@phase</span><span class="o">.</span><span class="n">setter</span>
@@ -350,7 +350,7 @@
 <span class="sd">        session_ID</span>
 <span class="sd">            an string with less than 50 characters</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">enquire</span><span class="p">()</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_enquire</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">status</span><span class="p">[</span><span class="s2">&quot;session_id&quot;</span><span class="p">]</span>
 
     <span class="nd">@session_id</span><span class="o">.</span><span class="n">setter</span>
@@ -365,7 +365,7 @@
         <span class="nb">print</span><span class="p">(</span>
             <span class="sa">f</span><span class="s2">&quot;Set LSL session-ID to </span><span class="si">{session_id}</span><span class="s2">. Restart the device to apply change!&quot;</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_query</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
 
 <div class="viewcode-block" id="LuckyClient.trigger"><a class="viewcode-back" href="../../client.html#luckyloop.client.LuckyClient.trigger">[docs]</a>    <span class="k">def</span> <span class="nf">trigger</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;LuckyLoop will trigger once the conditions are met</span>
@@ -376,7 +376,7 @@
 <span class="sd">           The effective target frequency and phase can be changed with(:meth:`~.frequency` &amp; :meth:`~phase`) anytime. To prevent a racing condition, set them prior to calling :meth:`~trigger`. </span>
 
 <span class="sd">        .. tip::</span>
-<span class="sd">           You can see whether LuckyLoop has triggered by calling :meth:`~.enquire` continually until the trigger status field is 0, e.g. with :code:`client.enquire()[&quot;trigger&quot;] == 0`</span>
+<span class="sd">           You can see whether LuckyLoop has triggered by calling the private :meth:`~._enquire` continually until the trigger status field is 0, e.g. with :code:`client.enquire()[&quot;trigger&quot;] == 0`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">condition</span> <span class="o">=</span> <span class="p">{</span>
@@ -388,31 +388,31 @@
         <span class="p">}</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">set_condition</span><span class="p">(</span><span class="n">condition</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">set_condition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">condition</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_encode</span><span class="p">(</span><span class="n">condition</span><span class="p">))</span>
+    <span class="k">def</span> <span class="nf">_set_condition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">condition</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_encode</span><span class="p">(</span><span class="n">condition</span><span class="p">))</span>
 
 <div class="viewcode-block" id="LuckyClient.shutdown"><a class="viewcode-back" href="../../client.html#luckyloop.client.LuckyClient.shutdown">[docs]</a>    <span class="k">def</span> <span class="nf">shutdown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="s2">&quot;shuts LuckyLoop down gracefully&quot;</span>
         <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;[shutdown:]</span><span class="se">\0</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;ascii&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_query</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="LuckyClient.enquire"><a class="viewcode-back" href="../../client.html#luckyloop.client.LuckyClient.enquire">[docs]</a>    <span class="k">def</span> <span class="nf">enquire</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">_enquire</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
         <span class="s2">&quot;enquire about the current status and version of LuckyLoop&quot;</span>
         <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;[send_status:]</span><span class="se">\0</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;ascii&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_enquire_condition</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
         <span class="s2">&quot;enquire about the current condition of LuckyLoop&quot;</span>
         <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;[send_condition:]</span><span class="se">\0</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;ascii&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
 
-<div class="viewcode-block" id="LuckyClient.query"><a class="viewcode-back" href="../../client.html#luckyloop.client.LuckyClient.query">[docs]</a>    <span class="k">def</span> <span class="nf">query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="nf">_query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
         <span class="s2">&quot;send and receive a message to LuckyLoop&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_connect</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_socket</span><span class="o">.</span><span class="n">sendall</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
         <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_socket</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_buffer_size</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_close</span><span class="p">()</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_decode</span><span class="p">(</span><span class="n">status</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_decode</span><span class="p">(</span><span class="n">status</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="s2">&quot;connect with LuckyLoop&quot;</span>

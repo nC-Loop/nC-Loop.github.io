@@ -200,17 +200,6 @@
 <p>For safety reasons, parameters like target frequency and phase are not set during initialization of the client, as this could interrupt an ongoing process on LuckyLoop when an user tries to reconnect. All parameters have be set explicitly after initialization.</p>
 </div>
 <dl class="py method">
-<dt id="luckyloop.client.LuckyClient.enquire">
-<code class="sig-name descname">enquire</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/luckyloop/client.html#LuckyClient.enquire"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#luckyloop.client.LuckyClient.enquire" title="Permalink to this definition">¶</a></dt>
-<dd><p>enquire about the current status and version of LuckyLoop</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
 <dt id="luckyloop.client.LuckyClient.frequency">
 <em class="property">property </em><code class="sig-name descname">frequency</code><a class="headerlink" href="#luckyloop.client.LuckyClient.frequency" title="Permalink to this definition">¶</a></dt>
 <dd><p>The frequency for which LuckyLoop calculates phase and power</p>
@@ -236,17 +225,6 @@
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="luckyloop.client.LuckyClient.query">
-<code class="sig-name descname">query</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/luckyloop/client.html#LuckyClient.query"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#luckyloop.client.LuckyClient.query" title="Permalink to this definition">¶</a></dt>
-<dd><p>send and receive a message to LuckyLoop</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -302,7 +280,7 @@
 </div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>You can see whether LuckyLoop has triggered by calling <a class="reference internal" href="#luckyloop.client.LuckyClient.enquire" title="luckyloop.client.LuckyClient.enquire"><code class="xref py py-meth docutils literal notranslate"><span class="pre">enquire()</span></code></a> continually until the trigger status field is 0, e.g. with <code class="code docutils literal notranslate"><span class="pre">client.enquire()[&quot;trigger&quot;]</span> <span class="pre">==</span> <span class="pre">0</span></code></p>
+<p>You can see whether LuckyLoop has triggered by calling the private <code class="xref py py-meth docutils literal notranslate"><span class="pre">_enquire()</span></code> continually until the trigger status field is 0, e.g. with <code class="code docutils literal notranslate"><span class="pre">client.enquire()[&quot;trigger&quot;]</span> <span class="pre">==</span> <span class="pre">0</span></code></p>
 </div>
 </dd></dl>
 
