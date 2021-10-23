@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,28 +11,30 @@
   
 
   
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Local Compilation" href="../build.html" />
@@ -51,7 +52,7 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> LuckyLoop
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> LuckyLoop
           
 
           
@@ -74,6 +75,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -109,6 +111,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -147,7 +150,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../application.html">Device</a> &raquo;</li>
         
@@ -177,181 +180,201 @@
 <p>The memory segment used for is identified by the SHARED_CONDITION_KEY. The first step to use libsri.so is initializing the shared memory segment using <code class="docutils literal notranslate"><span class="pre">initialize_shared_condition</span></code>. This overwrittes anything already in place, and should therefore be only used by the LuckyApp. Afterwards, one can attach the shared segment with <code class="docutils literal notranslate"><span class="pre">access_shared_condition</span></code>, and read/write by pointing it to the local copy. It is best practice not to read/write the shared_condition directly.</p>
 <p>Read/Write keeps the local copy untouched if the shared segment is currently locked. LuckyApp runs a continuous loop. Therefore, if the shared condition is locked, it will just failback to its local copy and try again next cycle. As the LuckyServer only read/writes the shared condition when a client has send a message. It therefore needs to wait until the lock is free, e.g. by putting the function call into a while loop. </p>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Defines</p>
-<dl class="define">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-defines">Defines</p>
+<dl class="c macro">
 <dt>
-<code class="sig-name descname">SHARED_CONDITION_KEY</code></dt>
+<code class="sig-name descname">VERSION</code><br /></dt>
+<dd><p>Defines the version, that will be shown to a client </p>
+</dd></dl>
+
+<dl class="c macro">
+<dt>
+<code class="sig-name descname">SHARED_CONDITION_KEY</code><br /></dt>
 <dd><p>the key used to identify the shared memory writable for LuckyServer </p>
 </dd></dl>
 
-<dl class="define">
+<dl class="c macro">
 <dt>
-<code class="sig-name descname">CONDITION_DEFAULT</code></dt>
+<code class="sig-name descname">CONDITION_DEFAULT</code><br /></dt>
 <dd><p>the default conditions when initializing a shared or local instance </p>
 </dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Functions</p>
-<dl class="function">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-functions">Functions</p>
+<dl class="c function">
 <dt>
-void <code class="sig-name descname">initialize_shared_condition</code><span class="sig-paren">(</span>int<em> key</em><span class="sig-paren">)</span></dt>
-<dd><p>initialize a struct in shared memory This function releases any locks and sets the condition to default values as defined in CONDITION_DEFAULT <dl class="simple">
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">key</span></code>: the key to identify the shared memory </p></li>
+void <code class="sig-name descname">initialize_shared_condition</code><span class="sig-paren">(</span>int <em>key</em><span class="sig-paren">)</span><br /></dt>
+<dd><p>initialize a struct in shared memory This function releases any locks and sets the condition to default values as defined in CONDITION_DEFAULT </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> – the key to identify the shared memory </p></li>
 </ul>
 </dd>
 </dl>
-</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="c function">
 <dt>
-shared_condition* <code class="sig-name descname">access_shared_condition</code><span class="sig-paren">(</span>int<em> key</em><span class="sig-paren">)</span></dt>
-<dd><p>gain access to a struct storing conditions in shared memory <dl class="simple">
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">key</span></code>: the key to identify the shared memory </p></li>
+<a class="reference internal" href="#c.shared_condition" title="shared_condition">shared_condition</a> *<code class="sig-name descname">access_shared_condition</code><span class="sig-paren">(</span>int <em>key</em><span class="sig-paren">)</span><br /></dt>
+<dd><p>gain access to a struct storing conditions in shared memory </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> – the key to identify the shared memory </p></li>
 </ul>
 </dd>
 </dl>
-</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="c function">
 <dt>
-int <code class="sig-name descname">read_shared_condition</code><span class="sig-paren">(</span>shared_condition  *<em> shared</em>, condition  *<em> local</em><span class="sig-paren">)</span></dt>
-<dd><p>read conditions from shared memory If access to the shared memory is locked, the local conditions will be used as fallback and not be changed. Otherwise, the local copy will become a copy a copy of the shared conditions. Because the function is assumed to be run continually in a loop, we return a bool. This bool indicates whether there actually was any change in the content of the local copy. <dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>1 if the conditions in fallback were actually changed </p>
-</dd>
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">shared</span></code>: the conditions living in the shared memory </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">local</span></code>: the fallback conditions living in your local memory. </p></li>
+int <code class="sig-name descname">read_shared_condition</code><span class="sig-paren">(</span><a class="reference internal" href="#c.shared_condition" title="shared_condition">shared_condition</a> *<em>shared</em>, <a class="reference internal" href="#c.condition" title="condition">condition</a> *<em>local</em><span class="sig-paren">)</span><br /></dt>
+<dd><p>read conditions from shared memory If access to the shared memory is locked, the local conditions will be used as fallback and not be changed. Otherwise, the local copy will become a copy a copy of the shared conditions. Because the function is assumed to be run continually in a loop, we return a bool. This bool indicates whether there actually was any change in the content of the local copy. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>shared</strong> – the conditions living in the shared memory </p></li>
+<li><p><strong>local</strong> – the fallback conditions living in your local memory. </p></li>
 </ul>
 </dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if the conditions in fallback were actually changed </p>
+</dd>
 </dl>
-</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="c function">
 <dt>
-int <code class="sig-name descname">write_shared_condition</code><span class="sig-paren">(</span>shared_condition  *<em> shared</em>, const  condition<em> local</em><span class="sig-paren">)</span></dt>
-<dd><p>write the conditions to shared memory <dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>1 if i could acquire the lock and overwrite, 0 otherwise. The function is assumed to be run continually in a loop. If not, consider to put it into a while loop which breaks once written. </p>
-</dd>
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">shared</span></code>: the conditions living in the shared memory </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">local</span></code>: the local values to be shared </p></li>
+int <code class="sig-name descname">write_shared_condition</code><span class="sig-paren">(</span><a class="reference internal" href="#c.shared_condition" title="shared_condition">shared_condition</a> *<em>shared</em>, <em class="property">const</em> <a class="reference internal" href="#c.condition" title="condition">condition</a> <em>local</em><span class="sig-paren">)</span><br /></dt>
+<dd><p>write the conditions to shared memory </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>shared</strong> – the conditions living in the shared memory </p></li>
+<li><p><strong>local</strong> – the local values to be shared </p></li>
 </ul>
 </dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if i could acquire the lock and overwrite, 0 otherwise. The function is assumed to be run continually in a loop. If not, consider to put it into a while loop which breaks once written. </p>
+</dd>
 </dl>
-</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="c function">
 <dt>
-condition <code class="sig-name descname">create_local_condition</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<a class="reference internal" href="#c.condition" title="condition">condition</a> <code class="sig-name descname">create_local_condition</code><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
 <dd><p>create a struct storing conditions in local memory </p>
 </dd></dl>
 
-<dl class="function">
+<dl class="c function">
 <dt>
-int <code class="sig-name descname">are_conditions_equal</code><span class="sig-paren">(</span>const  condition<em> a</em>, const  shared_condition<em> b</em><span class="sig-paren">)</span></dt>
-<dd><p>compare two conditions for equality <dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>0 in case of inequality, 1 if equal </p>
-</dd>
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">a</span></code>: the first condition </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">b</span></code>: the other (shared) condition </p></li>
+int <code class="sig-name descname">are_conditions_equal</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#c.condition" title="condition">condition</a> <em>a</em>, <em class="property">const</em> <a class="reference internal" href="#c.shared_condition" title="shared_condition">shared_condition</a> <em>b</em><span class="sig-paren">)</span><br /></dt>
+<dd><p>compare two conditions for equality </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> – the first condition </p></li>
+<li><p><strong>b</strong> – the other (shared) condition </p></li>
 </ul>
 </dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>0 in case of inequality, 1 if equal </p>
+</dd>
 </dl>
-</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="c function">
 <dt>
-char* <code class="sig-name descname">condition_to_string</code><span class="sig-paren">(</span>condition<em> cond</em><span class="sig-paren">)</span></dt>
+char *<code class="sig-name descname">create_condition_JSON</code><span class="sig-paren">(</span><a class="reference internal" href="#c.condition" title="condition">condition</a> <em>cond</em><span class="sig-paren">)</span><br /></dt>
 <dd></dd></dl>
 
-<dl class="function">
+<dl class="c function">
 <dt>
-void <code class="sig-name descname">print_condition</code><span class="sig-paren">(</span>condition<em> cond</em><span class="sig-paren">)</span></dt>
-<dd><p>print the parameters of a condition to stdout <dl class="simple">
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">cond</span></code>: the condition to print </p></li>
+char *<code class="sig-name descname">create_status_JSON</code><span class="sig-paren">(</span><a class="reference internal" href="#c.condition" title="condition">condition</a> <em>cond</em>, char *<em>session_ID</em><span class="sig-paren">)</span><br /></dt>
+<dd></dd></dl>
+
+<dl class="c function">
+<dt>
+void <code class="sig-name descname">print_condition</code><span class="sig-paren">(</span><a class="reference internal" href="#c.condition" title="condition">condition</a> <em>cond</em><span class="sig-paren">)</span><br /></dt>
+<dd><p>print the parameters of a condition to stdout </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cond</strong> – the condition to print </p></li>
 </ul>
 </dd>
 </dl>
-</p>
 </dd></dl>
 
 </div>
-<dl class="struct">
+<dl class="c struct">
 <dt>
-<em class="property">struct </em><code class="sig-name descname">shared_condition</code></dt>
+<em class="property">struct </em><code class="sig-name descname">shared_condition</code><br /></dt>
 <dd><em>#include &lt;sri.h&gt;</em><p>A sharable structure containing the current settings of the EtherCat Main </p>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Public Members</p>
-<dl class="variable">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="c var">
 <dt>
-int <code class="sig-name descname">threshold</code></dt>
+int <code class="sig-name descname">threshold</code><br /></dt>
 <dd><p>the target threshold in a.u. </p>
 </dd></dl>
 
-<dl class="variable">
+<dl class="c var">
 <dt>
-int <code class="sig-name descname">target_phase</code></dt>
+int <code class="sig-name descname">target_phase</code><br /></dt>
 <dd><p>the target phase in degree </p>
 </dd></dl>
 
-<dl class="variable">
+<dl class="c var">
 <dt>
-int <code class="sig-name descname">target_frequency</code></dt>
+int <code class="sig-name descname">target_frequency</code><br /></dt>
 <dd><p>the target frequency in Hz </p>
 </dd></dl>
 
-<dl class="variable">
+<dl class="c var">
 <dt>
-int <code class="sig-name descname">trigger</code></dt>
+int <code class="sig-name descname">trigger</code><br /></dt>
 <dd><p>the current state of the trigger </p>
 </dd></dl>
 
-<dl class="variable">
+<dl class="c var">
 <dt>
-int <code class="sig-name descname">lock</code></dt>
+int <code class="sig-name descname">lock</code><br /></dt>
 <dd><p>this mutex is either locked or unlocked </p>
 </dd></dl>
 
 </div>
 </dd></dl>
 
-<dl class="struct">
+<dl class="c struct">
 <dt>
-<em class="property">struct </em><code class="sig-name descname">condition</code></dt>
+<em class="property">struct </em><code class="sig-name descname">condition</code><br /></dt>
 <dd><em>#include &lt;sri.h&gt;</em><p>A structure containing the current settings of the EtherCat Main </p>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Public Members</p>
-<dl class="variable">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="c var">
 <dt>
-int <code class="sig-name descname">threshold</code></dt>
+int <code class="sig-name descname">threshold</code><br /></dt>
 <dd><p>the target threshold in a.u. </p>
 </dd></dl>
 
-<dl class="variable">
+<dl class="c var">
 <dt>
-int <code class="sig-name descname">target_phase</code></dt>
+int <code class="sig-name descname">target_phase</code><br /></dt>
 <dd><p>the target phase in degree </p>
 </dd></dl>
 
-<dl class="variable">
+<dl class="c var">
 <dt>
-int <code class="sig-name descname">target_frequency</code></dt>
+int <code class="sig-name descname">target_frequency</code><br /></dt>
 <dd><p>the target frequency in Hz </p>
 </dd></dl>
 
-<dl class="variable">
+<dl class="c var">
 <dt>
-int <code class="sig-name descname">trigger</code></dt>
+int <code class="sig-name descname">trigger</code><br /></dt>
 <dd><p>the current state of the trigger </p>
 </dd></dl>
 
@@ -380,11 +403,19 @@ int <code class="sig-name descname">trigger</code></dt>
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2020, Translational Neurosurgery
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -395,7 +426,6 @@ int <code class="sig-name descname">trigger</code></dt>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

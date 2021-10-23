@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,28 +11,30 @@
   
 
   
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
 </head>
@@ -49,7 +50,7 @@
           
 
           
-            <a href="../../index.html" class="icon icon-home"> LuckyLoop
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> LuckyLoop
           
 
           
@@ -72,6 +73,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -98,6 +100,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -136,7 +139,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../index.html">Module code</a> &raquo;</li>
         
@@ -170,18 +173,22 @@
 <span class="sd">    .. code-block:: python</span>
 
 <span class="sd">        from luckyloop.client import LuckyClient</span>
-<span class="sd">        </span>
+
 <span class="sd">        lucky = LuckyClient()</span>
 <span class="sd">        lucky.frequency = 20  sets the target frequency to 20</span>
 <span class="sd">        lucky.phase = 2 # sets the target phase to 2</span>
 <span class="sd">        lucky.trigger() </span>
 <span class="sd">        # triggers as soon as the target phase for the target frequency is met</span>
-<span class="sd">        </span>
+
 
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Union</span>
 <span class="kn">import</span> <span class="nn">socket</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">luckyloop.mock</span> <span class="kn">import</span> <span class="n">positional_arguments</span>
+
+<span class="n">no_argument_sign</span> <span class="o">=</span> <span class="s2">&quot;=&quot;</span>
 
 
 <div class="viewcode-block" id="LuckyClient"><a class="viewcode-back" href="../../client.html#luckyloop.client.LuckyClient">[docs]</a><span class="k">class</span> <span class="nc">LuckyClient</span><span class="p">:</span>
@@ -208,7 +215,7 @@
     <span class="p">]</span>
     <span class="n">_buffer_size</span> <span class="o">=</span> <span class="mi">8192</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="n">port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1219</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="n">port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1219</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_host</span> <span class="o">=</span> <span class="n">host</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_port</span> <span class="o">=</span> <span class="n">port</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_socket</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
@@ -216,7 +223,7 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">phase</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;the phase at which LuckyLoop triggers. </span>
+        <span class="sd">&quot;&quot;&quot;the phase at which LuckyLoop triggers.</span>
 
 <span class="sd">        set the corresponding target frequency with :meth:`~.frequency`</span>
 
@@ -224,7 +231,6 @@
 <span class="sd">        ----</span>
 <span class="sd">        target_phase</span>
 <span class="sd">            an integer between -180 and +180</span>
-<span class="sd">    </span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">enquire</span><span class="p">()</span>
@@ -239,16 +245,44 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Target phase must be an integer&quot;</span><span class="p">)</span>
 
         <span class="n">condition</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;threshold&quot;</span><span class="p">:</span> <span class="s2">&quot;=&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;threshold&quot;</span><span class="p">:</span> <span class="n">no_argument_sign</span><span class="p">,</span>
             <span class="s2">&quot;target_phase&quot;</span><span class="p">:</span> <span class="n">target_phase</span><span class="p">,</span>
-            <span class="s2">&quot;target_frequency&quot;</span><span class="p">:</span> <span class="s2">&quot;=&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;trigger&quot;</span><span class="p">:</span> <span class="s2">&quot;=&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;target_frequency&quot;</span><span class="p">:</span> <span class="n">no_argument_sign</span><span class="p">,</span>
+            <span class="s2">&quot;trigger&quot;</span><span class="p">:</span> <span class="n">no_argument_sign</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_condition</span><span class="p">(</span><span class="n">condition</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">trigger_method</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;the trigger_method according to which LuckyLoop would trigger</span>
+
+<span class="sd">        args</span>
+<span class="sd">        ----</span>
+<span class="sd">        trigger_method</span>
+<span class="sd">            a str with one of the following values:</span>
+<span class="sd">            - &quot;passing&quot;</span>
+<span class="sd">            - &#39;now&#39;</span>
+<span class="sd">            - &#39;epsilon(&lt;float&gt;)&#39;</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_enquire_condition</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">status</span><span class="p">[</span><span class="s2">&quot;trigger_method&quot;</span><span class="p">]</span>
+
+    <span class="nd">@trigger_method</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">trigger_method</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trigger_method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;passing&quot;</span><span class="p">):</span>
+
+        <span class="n">condition</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;threshold&quot;</span><span class="p">:</span> <span class="n">no_argument_sign</span><span class="p">,</span>
+            <span class="s2">&quot;target_phase&quot;</span><span class="p">:</span> <span class="n">no_argument_sign</span><span class="p">,</span>
+            <span class="s2">&quot;target_frequency&quot;</span><span class="p">:</span> <span class="n">no_argument_sign</span><span class="p">,</span>
+            <span class="s2">&quot;trigger&quot;</span><span class="p">:</span> <span class="n">no_argument_sign</span><span class="p">,</span>
+            <span class="s2">&quot;trigger_method&quot;</span><span class="p">:</span> <span class="n">trigger_method</span><span class="p">,</span>
         <span class="p">}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">set_condition</span><span class="p">(</span><span class="n">condition</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">threshold</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;the power threshold for which LuckyLoop would trigger </span>
+        <span class="sd">&quot;&quot;&quot;the power threshold for which LuckyLoop would trigger</span>
 
 <span class="sd">        args</span>
 <span class="sd">        ----</span>
@@ -259,27 +293,29 @@
 <span class="sd">        .. note::</span>
 <span class="sd">           Currently not being used by LuckyLoop</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">enquire</span><span class="p">()</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_enquire_condition</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">status</span><span class="p">[</span><span class="s2">&quot;threshold&quot;</span><span class="p">]</span>
 
     <span class="nd">@threshold</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">threshold</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">threshold</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
 
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">threshold</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">int</span> <span class="ow">or</span> <span class="n">threshold</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;threshold must be an integer larger or equal to 0&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;threshold must be an integer larger or equal to 0&quot;</span>
+            <span class="p">)</span>
 
         <span class="n">condition</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;threshold&quot;</span><span class="p">:</span> <span class="n">threshold</span><span class="p">,</span>
-            <span class="s2">&quot;target_phase&quot;</span><span class="p">:</span> <span class="s2">&quot;=&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;target_frequency&quot;</span><span class="p">:</span> <span class="s2">&quot;=&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;trigger&quot;</span><span class="p">:</span> <span class="s2">&quot;=&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;target_phase&quot;</span><span class="p">:</span> <span class="n">no_argument_sign</span><span class="p">,</span>
+            <span class="s2">&quot;target_frequency&quot;</span><span class="p">:</span> <span class="n">no_argument_sign</span><span class="p">,</span>
+            <span class="s2">&quot;trigger&quot;</span><span class="p">:</span> <span class="n">no_argument_sign</span><span class="p">,</span>
         <span class="p">}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">set_condition</span><span class="p">(</span><span class="n">condition</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">frequency</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;the frequency for which LuckyLoop calculates phase and power</span>
-<span class="sd">        </span>
+        <span class="sd">&quot;&quot;&quot;The frequency for which LuckyLoop calculates phase and power</span>
+
 <span class="sd">        LuckyLoop calculates phase and amplitude continually for a specific frequency. Change this target_frequency</span>
 
 <span class="sd">        args</span>
@@ -287,7 +323,7 @@
 <span class="sd">        target_frequency</span>
 <span class="sd">            an integer of at least 1 Hz</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">enquire</span><span class="p">()</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_enquire_condition</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">status</span><span class="p">[</span><span class="s2">&quot;target_frequency&quot;</span><span class="p">]</span>
 
     <span class="nd">@frequency</span><span class="o">.</span><span class="n">setter</span>
@@ -298,14 +334,40 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Target frequency must be an integer&quot;</span><span class="p">)</span>
 
         <span class="n">condition</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;threshold&quot;</span><span class="p">:</span> <span class="s2">&quot;=&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;target_phase&quot;</span><span class="p">:</span> <span class="s2">&quot;=&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;threshold&quot;</span><span class="p">:</span> <span class="n">no_argument_sign</span><span class="p">,</span>
+            <span class="s2">&quot;target_phase&quot;</span><span class="p">:</span> <span class="n">no_argument_sign</span><span class="p">,</span>
             <span class="s2">&quot;target_frequency&quot;</span><span class="p">:</span> <span class="n">target_frequency</span><span class="p">,</span>
-            <span class="s2">&quot;trigger&quot;</span><span class="p">:</span> <span class="s2">&quot;=&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;trigger&quot;</span><span class="p">:</span> <span class="n">no_argument_sign</span><span class="p">,</span>
         <span class="p">}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">set_condition</span><span class="p">(</span><span class="n">condition</span><span class="p">)</span>
 
-<div class="viewcode-block" id="LuckyClient.trigger"><a class="viewcode-back" href="../../client.html#luckyloop.client.LuckyClient.trigger">[docs]</a>    <span class="k">def</span> <span class="nf">trigger</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">session_id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;the lsl session ID</span>
+
+<span class="sd">        args</span>
+<span class="sd">        ----</span>
+<span class="sd">        session_ID</span>
+<span class="sd">            an string with less than 50 characters</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">enquire</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">status</span><span class="p">[</span><span class="s2">&quot;session_id&quot;</span><span class="p">]</span>
+
+    <span class="nd">@session_id</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">session_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;default&quot;</span><span class="p">):</span>
+        <span class="s2">&quot;sets the LSL session ID in a config file. Change will apply after restart&quot;</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">session_id</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">str</span> <span class="ow">or</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">session_id</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">50</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Session_ID must be an string shorter than 50 characters&quot;</span>
+            <span class="p">)</span>
+
+        <span class="n">message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;[set_lsl_session_ID: </span><span class="si">{session_id}</span><span class="s2">]</span><span class="se">\0</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;ascii&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Set LSL session-ID to </span><span class="si">{session_id}</span><span class="s2">. Restart the device to apply change!&quot;</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+
+<div class="viewcode-block" id="LuckyClient.trigger"><a class="viewcode-back" href="../../client.html#luckyloop.client.LuckyClient.trigger">[docs]</a>    <span class="k">def</span> <span class="nf">trigger</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;LuckyLoop will trigger once the conditions are met</span>
 
 <span class="sd">        While set, LuckyLoop will, once the required conditions are met, pull OUT1 to 5V for one cycle (i.e. 1ms). After LuckyLoop has triggered, trigger status field is set to 0. </span>
@@ -315,29 +377,14 @@
 
 <span class="sd">        .. tip::</span>
 <span class="sd">           You can see whether LuckyLoop has triggered by calling :meth:`~.enquire` continually until the trigger status field is 0, e.g. with :code:`client.enquire()[&quot;trigger&quot;] == 0`</span>
-<span class="sd">        </span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">condition</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;threshold&quot;</span><span class="p">:</span> <span class="s2">&quot;=&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;target_phase&quot;</span><span class="p">:</span> <span class="s2">&quot;=&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;target_frequency&quot;</span><span class="p">:</span> <span class="s2">&quot;=&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;threshold&quot;</span><span class="p">:</span> <span class="n">no_argument_sign</span><span class="p">,</span>
+            <span class="s2">&quot;target_phase&quot;</span><span class="p">:</span> <span class="n">no_argument_sign</span><span class="p">,</span>
+            <span class="s2">&quot;target_frequency&quot;</span><span class="p">:</span> <span class="n">no_argument_sign</span><span class="p">,</span>
             <span class="s2">&quot;trigger&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>  <span class="c1"># trigger PIN 1</span>
-        <span class="p">}</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">set_condition</span><span class="p">(</span><span class="n">condition</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="LuckyClient.trigger_now"><a class="viewcode-back" href="../../client.html#luckyloop.client.LuckyClient.trigger_now">[docs]</a>    <span class="k">def</span> <span class="nf">trigger_now</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;LuckyLoop will trigger immediately regardless of any conditions</span>
-
-<span class="sd">         LuckyLoop will pull OUT1 to 5V for one cycle (i.e. 1ms). After LuckyLoop has triggered, trigger status field is set to 0. </span>
-<span class="sd">        </span>
-<span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="n">condition</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;threshold&quot;</span><span class="p">:</span> <span class="s2">&quot;=&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;target_phase&quot;</span><span class="p">:</span> <span class="s2">&quot;=&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;target_frequency&quot;</span><span class="p">:</span> <span class="s2">&quot;=&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;trigger&quot;</span><span class="p">:</span> <span class="mi">101</span><span class="p">,</span>  <span class="c1"># trigger PIN 1 immediatly</span>
+            <span class="s2">&quot;trigger_method&quot;</span><span class="p">:</span> <span class="n">no_argument_sign</span> <span class="k">if</span> <span class="n">method</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">method</span><span class="p">,</span>
         <span class="p">}</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">set_condition</span><span class="p">(</span><span class="n">condition</span><span class="p">)</span></div>
 
@@ -353,6 +400,11 @@
         <span class="s2">&quot;enquire about the current status and version of LuckyLoop&quot;</span>
         <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;[send_status:]</span><span class="se">\0</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;ascii&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_enquire_condition</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+        <span class="s2">&quot;enquire about the current condition of LuckyLoop&quot;</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;[send_condition:]</span><span class="se">\0</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;ascii&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
 
 <div class="viewcode-block" id="LuckyClient.query"><a class="viewcode-back" href="../../client.html#luckyloop.client.LuckyClient.query">[docs]</a>    <span class="k">def</span> <span class="nf">query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
         <span class="s2">&quot;send and receive a message to LuckyLoop&quot;</span>
@@ -381,19 +433,28 @@
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_encode</span><span class="p">(</span><span class="n">condition</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bytearray</span><span class="p">:</span>
         <span class="s2">&quot;serialize a status dictionary for sending&quot;</span>
-        <span class="n">message</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;[set_condition:</span><span class="si">{condition[&#39;threshold&#39;]}</span><span class="s2">,</span><span class="si">{condition[&#39;target_phase&#39;]}</span><span class="s2">,</span><span class="si">{condition[&#39;target_frequency&#39;]}</span><span class="s2">,</span><span class="si">{condition[&#39;trigger&#39;]}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
-            <span class="s2">&quot;ascii&quot;</span>
-        <span class="p">)</span>
-        <span class="k">return</span> <span class="n">message</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;[set_condition:&quot;</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">positional_arguments</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">message</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{condition[k]}</span><span class="s2">,&quot;</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="n">message</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{no_argument_sign}</span><span class="s2">,&quot;</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="n">message</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">message</span> <span class="o">+=</span> <span class="s2">&quot;]&quot;</span>
+        <span class="k">return</span> <span class="n">message</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;ascii&quot;</span><span class="p">)</span>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_decode</span><span class="p">(</span><span class="n">status</span><span class="p">:</span> <span class="nb">bytearray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
         <span class="s2">&quot;deserialize a message from LuckyServer and return it as a dictionary&quot;</span>
-        <span class="n">items</span> <span class="o">=</span> <span class="n">status</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;ascii&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
-        <span class="n">cond</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">items</span><span class="p">[</span><span class="mi">0</span><span class="p">::</span><span class="mi">2</span><span class="p">],</span> <span class="n">items</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">]):</span>
-            <span class="n">cond</span><span class="p">[</span><span class="n">k</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">cond</span></div>
+        <span class="n">message</span> <span class="o">=</span> <span class="n">status</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;ascii&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">,</span> <span class="s1">&#39;&quot;&#39;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">message_as_dict</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">json</span><span class="o">.</span><span class="n">JSONDecodeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Message:&quot;</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Raw Message:&quot;</span><span class="p">,</span> <span class="n">status</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">e</span>
+        <span class="k">return</span> <span class="n">message_as_dict</span></div>
+
 </pre></div>
 
            </div>
@@ -406,11 +467,19 @@
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2020, Translational Neurosurgery
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -421,7 +490,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

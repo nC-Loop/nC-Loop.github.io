@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,28 +11,30 @@
   
 
   
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Ringbuffer" href="ringbuf.html" />
@@ -51,7 +52,7 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> LuckyLoop
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> LuckyLoop
           
 
           
@@ -74,6 +75,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -109,6 +111,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -147,7 +150,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../application.html">Device</a> &raquo;</li>
         
@@ -176,82 +179,86 @@
 <p>Generally, the first channel is the sample index, followed by EEG data, followed by an appendix, e.g. phase, power, triggerstate etc.</p>
 <p>On your local measurement PC, use on of the available LSL interfaces, e.g. <a class="reference external" href="https://pypi.org/project/pylsl/">pylsl</a>, to connect with this data stream. </p>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Defines</p>
-<dl class="define">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-defines">Defines</p>
+<dl class="c macro">
 <dt>
-<code class="sig-name descname">OUTLET_NAME</code></dt>
+<code class="sig-name descname">OUTLET_NAME</code><br /></dt>
 <dd><p>The name of the outlet. Defaults to LuckyLoop </p>
 </dd></dl>
 
-<dl class="define">
+<dl class="c macro">
 <dt>
-<code class="sig-name descname">OUTLET_CHANNEL_COUNT</code></dt>
+<code class="sig-name descname">OUTLET_CHANNEL_COUNT</code><br /></dt>
 <dd><p>The number of channels published with LSL  </p>
 </dd></dl>
 
-<dl class="define">
+<dl class="c macro">
 <dt>
-<code class="sig-name descname">MAX_APPENDIX_COUNT</code></dt>
+<code class="sig-name descname">MAX_APPENDIX_COUNT</code><br /></dt>
 <dd><p>the maximal number of appendable items for publication with LSL, given the number of EEG channels defined by the connected iobuffered hardware. </p>
 </dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Functions</p>
-<dl class="function">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-functions">Functions</p>
+<dl class="c function">
 <dt>
-void <code class="sig-name descname">stack_outlet_sample</code><span class="sig-paren">(</span>int32_t *<em> outlet_sample</em>, const int32_t<em> sample_index</em>, const int32_t *<em> eegsample</em>, const int32_t *<em> appendix</em><span class="sig-paren">)</span></dt>
-<dd><p>stack different items for publication with an LSL outlet order of array will be in order of the arguments, i.e. index, eeg, appendix. <dl class="simple">
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">outlet_sample</span></code>: array of data to be published with LSL, items will be stacked into this array </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">sample_index</span></code>: monotonic count index of the current sample </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">eeg_sample</span></code>: array with the current EEG samples </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">appendix</span></code>: array with additional values to be appended after the EEG samples </p></li>
+void <code class="sig-name descname">stack_outlet_sample</code><span class="sig-paren">(</span>int32_t *<em>outlet_sample</em>, <em class="property">const</em> int32_t <em>sample_index</em>, <em class="property">const</em> int32_t *<em>eegsample</em>, <em class="property">const</em> int32_t *<em>appendix</em><span class="sig-paren">)</span><br /></dt>
+<dd><p>stack different items for publication with an LSL outlet order of array will be in order of the arguments, i.e. index, eeg, appendix. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>outlet_sample</strong> – array of data to be published with LSL, items will be stacked into this array </p></li>
+<li><p><strong>sample_index</strong> – monotonic count index of the current sample </p></li>
+<li><p><strong>eeg_sample</strong> – array with the current EEG samples </p></li>
+<li><p><strong>appendix</strong> – array with additional values to be appended after the EEG samples </p></li>
 </ul>
 </dd>
 </dl>
-</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="c function">
 <dt>
-void <code class="sig-name descname">stack_variadic</code><span class="sig-paren">(</span>int32_t *<em> stacked</em>, const int<em> variadic_count</em>, ...<span class="sig-paren">)</span></dt>
-<dd><p>stack different items for publication with an LSL outlet <dl class="simple">
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">stacked</span></code>: array to be stacked into </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">variadic_count</span></code>: how many single items will be appended after the appendix. </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">variadic</span></code>: appendix of len variadic_count. each item must be of type int32_t </p></li>
+void <code class="sig-name descname">stack_variadic</code><span class="sig-paren">(</span>int32_t *<em>stacked</em>, <em class="property">const</em> int <em>variadic_count</em>, ...<span class="sig-paren">)</span><br /></dt>
+<dd><p>stack different items for publication with an LSL outlet </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>stacked</strong> – array to be stacked into </p></li>
+<li><p><strong>variadic_count</strong> – how many single items will be appended after the appendix. </p></li>
+<li><p><strong>variadic</strong> – appendix of len variadic_count. each item must be of type int32_t </p></li>
 </ul>
 </dd>
 </dl>
-</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="c function">
 <dt>
-lsl_outlet <code class="sig-name descname">init_lsl_outlet</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+lsl_outlet <code class="sig-name descname">init_lsl_outlet</code><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
 <dd><p>initialize the LSL outlet for publishing </p>
 </dd></dl>
 
-<dl class="function">
+<dl class="c function">
 <dt>
-unsigned int <code class="sig-name descname">aton</code><span class="sig-paren">(</span>char *<em> ipaddress</em><span class="sig-paren">)</span></dt>
+unsigned int <code class="sig-name descname">aton</code><span class="sig-paren">(</span>char *<em>ipaddress</em><span class="sig-paren">)</span><br /></dt>
 <dd><p>convert an IP-address string to unsigned interer </p>
 </dd></dl>
 
-<dl class="function">
+<dl class="c function">
 <dt>
-char* <code class="sig-name descname">get_adapter_address</code><span class="sig-paren">(</span>char *<em> adaptername</em>, size_t<em> name_len</em><span class="sig-paren">)</span></dt>
-<dd><p>get the IP address of an adapter specified by its name <dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>the ip address as a string. convert it to an integer with aton </p>
-</dd>
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">adaptername</span></code>: the name of the adapter, e.h. eth0, eth1 or enp5s0 </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">name_len</span></code>: the length of the adaptername string </p></li>
+char *<code class="sig-name descname">get_adapter_address</code><span class="sig-paren">(</span>char *<em>adaptername</em>, size_t <em>name_len</em><span class="sig-paren">)</span><br /></dt>
+<dd><p>get the IP address of an adapter specified by its name </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>adaptername</strong> – the name of the adapter, e.h. eth0, eth1 or enp5s0 </p></li>
+<li><p><strong>name_len</strong> – the length of the adaptername string </p></li>
 </ul>
 </dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the ip address as a string. convert it to an integer with aton </p>
+</dd>
 </dl>
-</p>
 </dd></dl>
 
 </div>
@@ -277,11 +284,19 @@ char* <code class="sig-name descname">get_adapter_address</code><span class="sig
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2020, Translational Neurosurgery
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -292,7 +307,6 @@ char* <code class="sig-name descname">get_adapter_address</code><span class="sig
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

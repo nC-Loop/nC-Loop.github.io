@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,28 +11,30 @@
   
 
   
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="libsri.so" href="sri.html" />
@@ -51,7 +52,7 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> LuckyLoop
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> LuckyLoop
           
 
           
@@ -74,6 +75,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -109,6 +111,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -147,7 +150,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../application.html">Device</a> &raquo;</li>
         
@@ -182,121 +185,201 @@
 </div>
  </p>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Defines</p>
-<dl class="define">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-defines">Defines</p>
+<dl class="c macro">
 <dt>
-<code class="sig-name descname">PORT</code></dt>
+<code class="sig-name descname">PORT</code><br /></dt>
 <dd><p>port at which clients should expect the server. Defaults to 1219 </p>
 </dd></dl>
 
-<dl class="define">
+<dl class="c macro">
 <dt>
-<code class="sig-name descname">MAX_LISTENERS</code></dt>
+<code class="sig-name descname">MAX_LISTENERS</code><br /></dt>
 <dd><p>how many listeners can be enqueued at max defaults to 1 </p>
 </dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Functions</p>
-<dl class="function">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-functions">Functions</p>
+<dl class="c function">
 <dt>
-static void <code class="sig-name descname">error_exit</code><span class="sig-paren">(</span>char *<em> errorMessage</em><span class="sig-paren">)</span></dt>
-<dd><p>shuts the server down with an error message <dl class="simple">
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">errorMessage</span></code>: the errormessage to stderr </p></li>
+<em class="property">static</em> void <code class="sig-name descname">error_exit</code><span class="sig-paren">(</span>char *<em>errorMessage</em><span class="sig-paren">)</span><br /></dt>
+<dd><p>shuts the server down with an error message </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>errorMessage</strong> – the errormessage to stderr </p></li>
 </ul>
 </dd>
 </dl>
-</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="c function">
 <dt>
-int <code class="sig-name descname">send_status</code><span class="sig-paren">(</span>int<em> client</em>, condition  *<em> cond</em><span class="sig-paren">)</span></dt>
-<dd><p>send the current status to the connected client The status message will be encoded as defined by sri::condition_to_string <dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>0 if successful </p>
-</dd>
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">client</span></code>: to whom to send the message </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">cond</span></code>: the status information to be sent </p></li>
+int <code class="sig-name descname">send_condition</code><span class="sig-paren">(</span>int <em>client</em>, <a class="reference internal" href="sri.html#c.condition" title="condition">condition</a> *<em>cond</em><span class="sig-paren">)</span><br /></dt>
+<dd><p>send the current status to the connected client The status message will be encoded as defined by sri::create_condition_JSON </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>client</strong> – to whom to send the message </p></li>
+<li><p><strong>cond</strong> – the status information to be sent </p></li>
 </ul>
 </dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>0 if successful </p>
+</dd>
 </dl>
-</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="c function">
 <dt>
-void <code class="sig-name descname">removeSpaces</code><span class="sig-paren">(</span>char *<em> str</em><span class="sig-paren">)</span></dt>
+int <code class="sig-name descname">send_status</code><span class="sig-paren">(</span>int <em>client</em>, <a class="reference internal" href="sri.html#c.condition" title="condition">condition</a> *<em>cond</em>, char *<em>session_ID</em><span class="sig-paren">)</span><br /></dt>
+<dd><p>send the current status to the connected client The status message will be encoded as defined by sri:: create_status_JSON </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>client</strong> – to whom to send the message </p></li>
+<li><p><strong>cond</strong> – the condition information to be sent </p></li>
+<li><p><strong>session_ID</strong> – the session_ID as read from the config file </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>0 if successful </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt>
+void <code class="sig-name descname">removeSpaces</code><span class="sig-paren">(</span>char *<em>str</em><span class="sig-paren">)</span><br /></dt>
 <dd><p>removes all spaces from a string </p>
 </dd></dl>
 
-<dl class="function">
+<dl class="c function">
 <dt>
-int <code class="sig-name descname">accept_client</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
-<dd><p>accept a TCP/IP client blocks until a client connects <dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>the client file descriptor </p>
+int <code class="sig-name descname">accept_client</code><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd><p>accept a TCP/IP client blocks until a client connects </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the client file descriptor </p>
 </dd>
 </dl>
-</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="c function">
 <dt>
-int <code class="sig-name descname">start_server</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
-<dd><p>start and bind a TCP/IP server <dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>the server file descriptor </p>
+int <code class="sig-name descname">start_server</code><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd><p>start and bind a TCP/IP server </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the server file descriptor </p>
 </dd>
 </dl>
-</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="c function">
 <dt>
-int <code class="sig-name descname">set_condition_from_arguments</code><span class="sig-paren">(</span>char *<em> arguments</em>, condition  *<em> condition</em><span class="sig-paren">)</span></dt>
-<dd><p>Overwrite an already existing condition based on arguments from a command message <dl class="simple">
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">arguments</span></code>: the arguments part of the message received from a client the positional order of the arguments is &lt;threshold&gt;, &lt;frequency&gt;, &lt;phase&gt;, &lt;trigger&gt;. Each argument is either an integer to overwrite the current setting or an equality symbol to keep the current setting. For example if the message <code class="docutils literal notranslate"><span class="pre">[set_condition:</span> <span class="pre">=,</span> <span class="pre">=,</span> <span class="pre">12,</span> <span class="pre">0]</span></code> would be received, the arguments part would be <code class="docutils literal notranslate"><span class="pre">=,</span> <span class="pre">=,</span> <span class="pre">12,</span> <span class="pre">0</span></code> which would keep threshold and target phase untouched while the target_frequency is changed to 12 and the trigger is disarmed by setting it to zero. </p></li>
+int <code class="sig-name descname">get_lsl_config_filename</code><span class="sig-paren">(</span>char *<em>filename</em><span class="sig-paren">)</span><br /></dt>
+<dd><p>This function determines the filename of the LSL config file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> – is a string that will contain the filname </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>EXIT_SUCCESS or error code </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt>
+int <code class="sig-name descname">change_session_id</code><span class="sig-paren">(</span>char *<em>argument</em><span class="sig-paren">)</span><br /></dt>
+<dd><p>This function reads a message from the client and changes the LSL config file accordingly.</p>
+<p><p>The message format is a string formatted with one arguments</p>
+<p>Format: [set_lsl_session_ID: &lt;session_ID&gt;]</p>
+
+It will create the config file in ~/lsl_api/lsl_api.cfg If the directory/file does not exist, it will be created.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>argument</strong> – is a string that contains the session_ID </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>EXIT_SUCCESS or error code </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt>
+int <code class="sig-name descname">get_session_id</code><span class="sig-paren">(</span>char *<em>session_ID</em>, int <em>buffersize</em><span class="sig-paren">)</span><br /></dt>
+<dd><p>This function reads the session ID from the LSL config.</p>
+<p>The function reads the config file in ~/lsl_api/lsl_api.cfg and extracts the session ID </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>session_ID</strong> – The destination where to write the session_ID </p></li>
+<li><p><strong>buffersize</strong> – The size of session_ID </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>int indicates success </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="c function">
+<dt>
+int <code class="sig-name descname">set_condition_from_arguments</code><span class="sig-paren">(</span>char *<em>arguments</em>, <a class="reference internal" href="sri.html#c.condition" title="condition">condition</a> *<em>condition</em><span class="sig-paren">)</span><br /></dt>
+<dd><p>Overwrite an already existing condition based on arguments from a command message </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>arguments</strong> – the arguments part of the message received from a client the positional order of the arguments is &lt;threshold&gt;, &lt;frequency&gt;, &lt;phase&gt;, &lt;trigger&gt;. Each argument is either an integer to overwrite the current setting or an equality symbol to keep the current setting. For example if the message <code class="docutils literal notranslate"><span class="pre">[set_condition:</span> <span class="pre">=,</span> <span class="pre">=,</span> <span class="pre">12,</span> <span class="pre">0]</span></code> would be received, the arguments part would be <code class="docutils literal notranslate"><span class="pre">=,</span> <span class="pre">=,</span> <span class="pre">12,</span> <span class="pre">0</span></code> which would keep threshold and target phase untouched while the target_frequency is changed to 12 and the trigger is disarmed by setting it to zero. </p></li>
 </ul>
 </dd>
 </dl>
-</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="c function">
 <dt>
-condition <code class="sig-name descname">recv_message</code><span class="sig-paren">(</span>int<em> client</em>, condition  *<em> new_status</em><span class="sig-paren">)</span></dt>
+<a class="reference internal" href="sri.html#c.condition" title="condition">condition</a> <code class="sig-name descname">recv_message</code><span class="sig-paren">(</span>int <em>client</em>, <a class="reference internal" href="sri.html#c.condition" title="condition">condition</a> *<em>new_status</em><span class="sig-paren">)</span><br /></dt>
 <dd><p>This function reads a message from the client and executes the given command.</p>
-<p>The message format is a string formatted with positional arguments <p>Format: [&lt;command&gt;: &lt;arg1&gt;, &lt;arg2&gt;, …, &lt;argN&gt;] </p>
-<p> Implemented are:</p>
-<ul class="simple">
+<p><p>The message format is a string formatted with positional arguments</p>
+<p>Format: [&lt;command&gt;: &lt;arg1&gt;, &lt;arg2&gt;, …, &lt;argN&gt;]</p>
+
+ Implemented are:<ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">[set_condition:</span> <span class="pre">&lt;threshold&gt;,</span> <span class="pre">&lt;frequency&gt;,</span> <span class="pre">&lt;phase&gt;,</span> <span class="pre">&lt;trigger&gt;]</span></code> where each argument can be either an integer or the equality symbol =.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">[shutdown:]</span></code> shuts the server down gracefully.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">[send_status:]</span></code> just return the current conditions without changing anything</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[set_lsl_session_ID:</span> <span class="pre">&lt;session_ID&gt;]</span></code> sets lsl config file to a new session ID. Change will be applyed after restart.</p></li>
 </ul>
 </p>
-<p><dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>EXIT_SUCCESS or error code </p>
-</dd>
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">client</span></code>: is the socket from whom the server will read. This is the client returned by :func:<code class="docutils literal notranslate"><span class="pre">~.</span><span class="pre">accept_client()</span></code> </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">condition</span></code>: *new_status the status object which will be filled based on the message received from the client </p></li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>client</strong> – is the socket from whom the server will read. This is the client returned by :func:<code class="docutils literal notranslate"><span class="pre">~.</span><span class="pre">accept_client()</span></code> </p></li>
+<li><p><strong>condition</strong> – *new_status the status object which will be filled based on the message received from the client </p></li>
 </ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>EXIT_SUCCESS or error code </p>
 </dd>
 </dl>
-</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="c function">
 <dt>
-int <code class="sig-name descname">loop</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+int <code class="sig-name descname">loop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
 <dd><p>The main loop accepting clients, parsing messages and executing commands</p>
 <p>Will be started when the executable is started</p>
-<p><dl class="simple">
-<dt><strong>Note</strong></dt><dd><p>shut the loop down by sending the shutdown command with a client </p>
-</dd>
-</dl>
-</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>shut the loop down by sending the shutdown command with a client </p>
+</div>
 </dd></dl>
 
 </div>
@@ -322,11 +405,19 @@ int <code class="sig-name descname">loop</code><span class="sig-paren">(</span><
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2020, Translational Neurosurgery
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -337,7 +428,6 @@ int <code class="sig-name descname">loop</code><span class="sig-paren">(</span><
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

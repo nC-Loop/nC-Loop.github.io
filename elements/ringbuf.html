@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,28 +11,30 @@
   
 
   
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="LuckyServer" href="server.html" />
@@ -51,7 +52,7 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> LuckyLoop
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> LuckyLoop
           
 
           
@@ -74,6 +75,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -109,6 +111,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -147,7 +150,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../application.html">Device</a> &raquo;</li>
         
@@ -175,118 +178,126 @@
 <p>Implements a ringbuffer to maintain past samples in memory for real-time DSP</p>
 <p>One of the main goals of the LuckyLoop real-time-process is to calculate phase and power of a specific frequency for a specific channel. To calculate phase and power, we need more than a current sample. To achieve this, data is collected by one of EtherCat slave devices and continually read in the EtherCat main process into a ringbuffer. </p>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Defines</p>
-<dl class="define">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-defines">Defines</p>
+<dl class="c macro">
 <dt>
-<code class="sig-name descname">BUFFERSIZE</code></dt>
+<code class="sig-name descname">BUFFERSIZE</code><br /></dt>
 <dd><p>a sensible default for the buffersize </p>
 </dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Functions</p>
-<dl class="function">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-functions">Functions</p>
+<dl class="c function">
 <dt>
-ringbuf* <code class="sig-name descname">ringbuf_new</code><span class="sig-paren">(</span>int<em> buffersize</em><span class="sig-paren">)</span></dt>
-<dd><p>creates a new buffer, returns a pointer to it <dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>a new ringbuf </p>
-</dd>
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">buffersize</span></code>: the size of the ringbuf in samples </p></li>
+<a class="reference internal" href="#c.ringbuf" title="ringbuf">ringbuf</a> *<code class="sig-name descname">ringbuf_new</code><span class="sig-paren">(</span>int <em>buffersize</em><span class="sig-paren">)</span><br /></dt>
+<dd><p>creates a new buffer, returns a pointer to it </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>buffersize</strong> – the size of the ringbuf in samples </p></li>
 </ul>
 </dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a new ringbuf </p>
+</dd>
 </dl>
-</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="c function">
 <dt>
-void <code class="sig-name descname">ringbuf_destroy</code><span class="sig-paren">(</span>ringbuf  *<em> ringbuffer</em><span class="sig-paren">)</span></dt>
-<dd><p>destroy a ringbuf and free the allocated memory <dl class="simple">
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">ringbuffer</span></code>: the ringbuf to be destroyed </p></li>
+void <code class="sig-name descname">ringbuf_destroy</code><span class="sig-paren">(</span><a class="reference internal" href="#c.ringbuf" title="ringbuf">ringbuf</a> *<em>ringbuffer</em><span class="sig-paren">)</span><br /></dt>
+<dd><p>destroy a ringbuf and free the allocated memory </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ringbuffer</strong> – the ringbuf to be destroyed </p></li>
 </ul>
 </dd>
 </dl>
-</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="c function">
 <dt>
-int <code class="sig-name descname">write_to_buffer</code><span class="sig-paren">(</span>ringbuf  *<em> ringbuffer</em>, double<em> sample</em><span class="sig-paren">)</span></dt>
-<dd><p>writes a new sample into the ringbuff <dl class="simple">
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">ringbuffer</span></code>: the ringbuffer to be written into </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">sample</span></code>: a double value written into the the head of the buffer </p></li>
+int <code class="sig-name descname">write_to_buffer</code><span class="sig-paren">(</span><a class="reference internal" href="#c.ringbuf" title="ringbuf">ringbuf</a> *<em>ringbuffer</em>, double <em>sample</em><span class="sig-paren">)</span><br /></dt>
+<dd><p>writes a new sample into the ringbuff </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ringbuffer</strong> – the ringbuffer to be written into </p></li>
+<li><p><strong>sample</strong> – a double value written into the the head of the buffer </p></li>
 </ul>
 </dd>
 </dl>
-</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="c function">
 <dt>
-int <code class="sig-name descname">write_array_to_buffer</code><span class="sig-paren">(</span>ringbuf  *<em> ringbuffer</em>, int<em> chunklen</em>, double *<em> chunk</em><span class="sig-paren">)</span></dt>
-<dd><p>write an array of samples into the ringbuf <dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>int will return 2 if the array is larger than the buffersize, suggesting an overflow </p>
-</dd>
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">chunk</span></code>: the array of samples to write into the buffer </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">chunklen</span></code>: the size of the array in samples </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">ringbuffer</span></code>: the ringbuffer to be written into The last value in the array will be the newest in the ringbuffer </p></li>
+int <code class="sig-name descname">write_array_to_buffer</code><span class="sig-paren">(</span><a class="reference internal" href="#c.ringbuf" title="ringbuf">ringbuf</a> *<em>ringbuffer</em>, int <em>chunklen</em>, double *<em>chunk</em><span class="sig-paren">)</span><br /></dt>
+<dd><p>write an array of samples into the ringbuf </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>chunk</strong> – the array of samples to write into the buffer </p></li>
+<li><p><strong>chunklen</strong> – the size of the array in samples </p></li>
+<li><p><strong>ringbuffer</strong> – the ringbuffer to be written into The last value in the array will be the newest in the ringbuffer </p></li>
 </ul>
 </dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>int will return 2 if the array is larger than the buffersize, suggesting an overflow </p>
+</dd>
 </dl>
-</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="c function">
 <dt>
-void <code class="sig-name descname">print_rbuf</code><span class="sig-paren">(</span>ringbuf  *<em> ringbuffer</em><span class="sig-paren">)</span></dt>
-<dd><p>print the whole buffer in circular fashion starting at the current head <dl class="simple">
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">ringbuffer</span></code>: the ringbuffer to print </p></li>
+void <code class="sig-name descname">print_rbuf</code><span class="sig-paren">(</span><a class="reference internal" href="#c.ringbuf" title="ringbuf">ringbuf</a> *<em>ringbuffer</em><span class="sig-paren">)</span><br /></dt>
+<dd><p>print the whole buffer in circular fashion starting at the current head </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ringbuffer</strong> – the ringbuffer to print </p></li>
 </ul>
 </dd>
 </dl>
-</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="c function">
 <dt>
-double <code class="sig-name descname">read_ringbuf_pos</code><span class="sig-paren">(</span>ringbuf  *<em> ringbuffer</em>, int<em> position</em><span class="sig-paren">)</span></dt>
-<dd><p>return a sample relative to the current head <dl class="simple">
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">ringbuffer</span></code>: the ringbuffer to read from </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">position</span></code>: int the newest value is at 0, the oldest at buffersize-1 </p></li>
+double <code class="sig-name descname">read_ringbuf_pos</code><span class="sig-paren">(</span><a class="reference internal" href="#c.ringbuf" title="ringbuf">ringbuf</a> *<em>ringbuffer</em>, int <em>position</em><span class="sig-paren">)</span><br /></dt>
+<dd><p>return a sample relative to the current head </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ringbuffer</strong> – the ringbuffer to read from </p></li>
+<li><p><strong>position</strong> – int the newest value is at 0, the oldest at buffersize-1 </p></li>
 </ul>
 </dd>
 </dl>
-</p>
 </dd></dl>
 
 </div>
-<dl class="struct">
+<dl class="c struct">
 <dt>
-<em class="property">struct </em><code class="sig-name descname">ringbuf</code></dt>
+<em class="property">struct </em><code class="sig-name descname">ringbuf</code><br /></dt>
 <dd><em>#include &lt;ringbuf.h&gt;</em><p>A structure to represent a ringbuffer </p>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Public Members</p>
-<dl class="variable">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="c var">
 <dt>
-double* <code class="sig-name descname">buffer</code></dt>
+double *<code class="sig-name descname">buffer</code><br /></dt>
 <dd><p>the dynamically allocated buffer array </p>
 </dd></dl>
 
-<dl class="variable">
+<dl class="c var">
 <dt>
-int <code class="sig-name descname">buffersize</code></dt>
+int <code class="sig-name descname">buffersize</code><br /></dt>
 <dd><p>the size of the buffer in samples </p>
 </dd></dl>
 
-<dl class="variable">
+<dl class="c var">
 <dt>
-int <code class="sig-name descname">head</code></dt>
+int <code class="sig-name descname">head</code><br /></dt>
 <dd><p>the current position of the buffer </p>
 </dd></dl>
 
@@ -315,11 +326,19 @@ int <code class="sig-name descname">head</code></dt>
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2020, Translational Neurosurgery
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -330,7 +349,6 @@ int <code class="sig-name descname">head</code></dt>
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,28 +11,30 @@
   
 
   
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../_static/jquery.js"></script>
-        <script type="text/javascript" src="../_static/underscore.js"></script>
-        <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Hardware IO Buffer" href="iobuffer.html" />
@@ -51,7 +52,7 @@
           
 
           
-            <a href="../index.html" class="icon icon-home"> LuckyLoop
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> LuckyLoop
           
 
           
@@ -74,6 +75,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -109,6 +111,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -147,7 +150,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../application.html">Device</a> &raquo;</li>
         
@@ -176,83 +179,88 @@
 <p><code class="docutils literal notranslate"><span class="pre">goertzel_coefficients</span></code> takes an 1-dimensional array of data and returns a complex number for the given target frequency. Use <code class="docutils literal notranslate"><span class="pre">calc_power</span></code> and <code class="docutils literal notranslate"><span class="pre">calc_phase</span></code> to transform this complex number into angle in radians or amplitude. You can get the data from the ringbuffer struct by direct access.</p>
 <p>Because the target phase virtually never can be met exactly, use <code class="docutils literal notranslate"><span class="pre">phase_to_trigger</span></code>, giving it the current phase and the phase from the last time you calculated it. </p>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Defines</p>
-<dl class="define">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-defines">Defines</p>
+<dl class="c macro">
 <dt>
-<code class="sig-name descname">PI</code></dt>
+<code class="sig-name descname">PI</code><br /></dt>
 <dd></dd></dl>
 
-<dl class="define">
+<dl class="c macro">
 <dt>
-<code class="sig-name descname">TAUPI</code></dt>
+<code class="sig-name descname">TAUPI</code><br /></dt>
 <dd></dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Functions</p>
-<dl class="function">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-functions">Functions</p>
+<dl class="c function">
 <dt>
-double <code class="sig-name descname">double_modulo</code><span class="sig-paren">(</span>double<em> n</em>, double<em> m</em><span class="sig-paren">)</span></dt>
-<dd><p>takes the modulo of a value. <dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>b the remainder </p>
-</dd>
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">n</span></code>: the starting value </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">m</span></code>: the divisor </p></li>
+double <code class="sig-name descname">double_modulo</code><span class="sig-paren">(</span>double <em>n</em>, double <em>m</em><span class="sig-paren">)</span><br /></dt>
+<dd><p>takes the modulo of a value. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n</strong> – the starting value </p></li>
+<li><p><strong>m</strong> – the divisor </p></li>
 </ul>
 </dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>b the remainder </p>
+</dd>
 </dl>
-</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="c function">
 <dt>
-double complex <code class="sig-name descname">goertzel_coefficients</code><span class="sig-paren">(</span>double *<em> ringbuffer_data</em>, int<em> ringbuffer_len</em>, int<em> target_frequency</em>, int<em> sampling_rate</em><span class="sig-paren">)</span></dt>
+<code class="sig-name descname">double complex goertzel_coefficients (double *ringbuffer_data, int ringbuffer_len, int target_frequency, int sampling_rate)</code></dt>
 <dd><p>calculates the Goertzel transformation</p>
-<p><dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>a complex value calculated for the target_frequency </p>
-</dd>
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">ringbuffer_data</span></code>: a pointer to the data array in the ringbuffer </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">ringbuffer_len</span></code>: how many past samples to use for the algorithm </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">target_frequency</span></code>: for which frequency to calculate the transformation </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">sampling_rate</span></code>: the sampling rate of the data in the ringbuffer </p></li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ringbuffer_data</strong> – a pointer to the data array in the ringbuffer </p></li>
+<li><p><strong>ringbuffer_len</strong> – how many past samples to use for the algorithm </p></li>
+<li><p><strong>target_frequency</strong> – for which frequency to calculate the transformation </p></li>
+<li><p><strong>sampling_rate</strong> – the sampling rate of the data in the ringbuffer </p></li>
 </ul>
 </dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a complex value calculated for the target_frequency </p>
+</dd>
 </dl>
-</p>
 </dd></dl>
 
-<dl class="function">
+<dl class="c function">
 <dt>
-double <code class="sig-name descname">calc_power</code><span class="sig-paren">(</span>double complex<em> z</em><span class="sig-paren">)</span></dt>
+<code class="sig-name descname">double calc_power (double complex z)</code></dt>
 <dd><p>calculates the power from a precomputed complex number </p>
 </dd></dl>
 
-<dl class="function">
+<dl class="c function">
 <dt>
-double <code class="sig-name descname">calc_phase</code><span class="sig-paren">(</span>double complex<em> z</em><span class="sig-paren">)</span></dt>
+<code class="sig-name descname">double calc_phase (double complex z)</code></dt>
 <dd><p>calculates the phase from a precomputed complex number </p>
 </dd></dl>
 
-<dl class="function">
+<dl class="c function">
 <dt>
-int <code class="sig-name descname">phase_to_trigger</code><span class="sig-paren">(</span>double<em> current_phase</em>, double<em> last_phase</em>, double<em> target_phase</em><span class="sig-paren">)</span></dt>
-<dd><p>decides if the target phase is met This function will decide whether the phase is met by a) calculation whether the target_phase has passed since the last calculation (i.e. lies between last_phase and current_phase) b) predict whether you will pass it with the next calculation, which is sensible only if you have a stable time between iterative calculations, as e.g. running this function in the main loop of LuckyApp. <dl class="simple">
-<dt><strong>Return</strong></dt><dd><p>:<ul class="simple">
+int <code class="sig-name descname">phase_to_trigger</code><span class="sig-paren">(</span>double <em>current_phase</em>, double <em>last_phase</em>, double <em>target_phase</em><span class="sig-paren">)</span><br /></dt>
+<dd><p>decides if the target phase is met This function will decide whether the phase is met by a) calculation whether the target_phase has passed since the last calculation (i.e. lies between last_phase and current_phase) b) predict whether you will pass it with the next calculation, which is sensible only if you have a stable time between iterative calculations, as e.g. running this function in the main loop of LuckyApp. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>current_phase</strong> – the current phase in radians </p></li>
+<li><p><strong>last_phase</strong> – the phase from the last calculation in radians </p></li>
+<li><p><strong>target_phase</strong> – the target phase in radians </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>:<ul class="simple">
 <li><p>0 for false (will not reach target phase)</p></li>
 <li><p>1 for true (target phase will be reached in next step) </p></li>
 </ul>
 </p>
 </dd>
-<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">current_phase</span></code>: the current phase in radians </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">last_phase</span></code>: the phase from the last calculation in radians </p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">target_phase</span></code>: the target phase in radians </p></li>
-</ul>
-</dd>
 </dl>
-</p>
 </dd></dl>
 
 </div>
@@ -278,11 +286,19 @@ int <code class="sig-name descname">phase_to_trigger</code><span class="sig-pare
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2020, Translational Neurosurgery
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -293,7 +309,6 @@ int <code class="sig-name descname">phase_to_trigger</code><span class="sig-pare
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

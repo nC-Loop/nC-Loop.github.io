@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,28 +11,30 @@
   
 
   
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="prev" title="libsri.so" href="elements/sri.html" /> 
@@ -50,7 +51,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> LuckyLoop
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> LuckyLoop
           
 
           
@@ -73,6 +74,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -92,13 +94,22 @@
 </ul>
 <p class="caption"><span class="caption-text">Building:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Local Compilation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#cross-compilation">Cross Compilation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Local Compilation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#perquisites">Perquisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#compilation">Compilation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#cross-compilation">Cross Compilation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">Perquisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">Compilation</a></li>
+</ul>
+</li>
 </ul>
 
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -137,7 +148,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>Local Compilation</li>
     
@@ -160,14 +171,36 @@
             
   <div class="section" id="local-compilation">
 <h1>Local Compilation<a class="headerlink" href="#local-compilation" title="Permalink to this headline">¶</a></h1>
-<p>You can compile the LuckyLoop application locally by running :code:make
+<div class="section" id="perquisites">
+<h2>Perquisites<a class="headerlink" href="#perquisites" title="Permalink to this headline">¶</a></h2>
+<p>For the local compilation you need to install LSL on your local machine. On Ubuntu and other
+Debian-based machines you can do this by downloading and installing the latest release of <a class="reference external" href="https://github.com/sccn/liblsl/releases">Liblsl</a>.
+The filenames refer to Ubuntu versions (e.g. <code class="code docutils literal notranslate"><span class="pre">liblsl-1.13.1-Linux64-bionic.deb</span></code> is for Ubuntu
+18.04 - Bionic Beaver).
+For other Unix machines you need to manually extract the files and place them in the correct system
+directories (probably <code class="file docutils literal notranslate"><span class="pre">/usr/</span></code>.</p>
+</div>
+<div class="section" id="compilation">
+<h2>Compilation<a class="headerlink" href="#compilation" title="Permalink to this headline">¶</a></h2>
+<p>You can compile the LuckyLoop application locally by running <code class="code docutils literal notranslate"><span class="pre">make</span></code>
 from the LuckyLoop root folder.</p>
+</div>
 </div>
 <div class="section" id="cross-compilation">
 <h1>Cross Compilation<a class="headerlink" href="#cross-compilation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>Perquisites<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <p>The application runs on a <a class="reference external" href="https://www.toradex.com/de/computer-on-modules/colibri-arm-family/nxp-freescale-imx7?gclid=CjwKCAiA4Y7yBRB8EiwADV1haV1e3yBTc93Qu7B6biJ9D3EML4jhz6fik-Q_m5JxnOyBqXRLHSTAYhoCHTUQAvD_BwE">Toradex Colibri iMX7 board</a>.</p>
 <p>For cross-compilation, you need to setup the respective crosscompilation toolchain.
 Follow the steps as outlined by toradex <a class="reference external" href="https://developer.toradex.com/getting-started/module-2-my-first-hello-world-in-c/configure-toolchain-colibri-imx7?som=colibri-imx7&amp;board=colibri-evaluation-board&amp;os=linux">here</a>.</p>
+<p>Then download and unzip the <a class="reference external" href="https://github.com/nC-Loop/Lucky/releases/tag/v0.0.4">liblsl32.so</a> an
+place it in <code class="file docutils literal notranslate"><span class="pre">_build/</span></code></p>
+</div>
+<div class="section" id="id2">
+<h2>Compilation<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>You can compile the LuckyLoop application for the device by running <code class="code docutils literal notranslate"><span class="pre">make</span> <span class="pre">cross</span></code>
+from the LuckyLoop root folder.</p>
+</div>
 </div>
 
 
@@ -188,11 +221,19 @@ Follow the steps as outlined by toradex <a class="reference external" href="http
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2020, Translational Neurosurgery
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -203,7 +244,6 @@ Follow the steps as outlined by toradex <a class="reference external" href="http
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {
